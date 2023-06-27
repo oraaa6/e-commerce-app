@@ -1,0 +1,28 @@
+.navigation {
+  background-color: rgb(255, 252, 248);
+  min-height: 200px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  padding: 15px;
+}
+
+.hamburger {
+  @include md {
+    display: none;
+  }
+}
+
+.links {
+  display: none;
+
+  &:global(.open) {
+    // global - when I don't want to hash `open` class
+    display: block;
+  }
+
+  @include md {
+    display: block;
+  }
+}
