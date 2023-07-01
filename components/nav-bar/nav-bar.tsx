@@ -7,10 +7,16 @@ import Logo from "../../assets/svg/logo.svg";
 import Hambrger from "../../assets/png/hamburger.png";
 import CloseIcon from "../../assets/png/cross-button.png";
 import Bag from "../../assets/svg/bag.svg";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 
 export function NavBar() {
   const [openMenu, setOpenMenu] = useState(false);
+  const pathname = usePathname();
+
+  useEffect(() => {
+    setOpenMenu(false);
+  }, [pathname]);
 
   return (
     <nav className={styles.navigation}>
@@ -31,7 +37,7 @@ export function NavBar() {
             <li>
               <Link href="/login">Login</Link>
             </li>
-            <li>
+            <li className={styles.cartLink}>
               <Link href="/cart">
                 <Image
                   className={styles.bag}
