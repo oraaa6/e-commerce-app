@@ -7,23 +7,46 @@
 .contentContainer {
   max-width: 1400px;
   margin: 0 auto;
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 150px 2fr 0px 2fr;
+  grid-template-rows: 1fr;
+  @include md {
+    grid-template-columns: 150px 0px 2fr;
+    grid-template-rows: 1fr 1fr;
+  }
 }
 
 .hamburger {
   position: relative;
+  justify-self: end;
   padding: 20px;
   z-index: 100;
+  grid-column: 4/5;
+  grid-row: 1/2;
   @include md {
     display: none;
   }
+}
+
+.foxLink {
+  grid-column: 1/2;
 }
 
 .fox {
   padding: 20px;
   position: relative;
   z-index: 101;
+}
+
+.searchInput {
+  grid-column: 1/-1;
+  justify-self: center;
+  padding-top: 20px;
+  grid-row: 2/3;
+  @include md {
+    grid-column: 2/4;
+    grid-row: 1/1;
+  }
 }
 
 .linksContainer {
@@ -35,6 +58,8 @@
     display: block;
     visibility: visible;
     opacity: 1;
+    grid-column: 4/5;
+    grid-row: 1/1;
   }
 
   &:global(.open) {
@@ -56,10 +81,34 @@
   }
 
   .cartLink {
-    width: 40px;
+    width: 35px;
     padding-bottom: 10px;
+    position: relative;
   }
+  .amountCart {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background-color: var(--color-warning);
+    font-size: 14px;
+    color: var(--color-white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    position: absolute;
+    right: -10px;
+    top: 20px;
+    transition: transform 0.2s;
 
+    &:hover {
+      transform: scale(1.05);
+    }
+    @include md {
+      right: -10px;
+      top: -10px;
+    }
+  }
   & .links {
     position: absolute;
     left: 50%;
@@ -83,7 +132,7 @@
     text-transform: uppercase;
     text-align: center;
     width: 100%;
-    font-size: 36px;
+    font-size: 26px;
     border-bottom: 1px solid black;
     transition: all 0.25s linear;
     position: relative;

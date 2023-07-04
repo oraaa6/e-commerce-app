@@ -21,14 +21,17 @@ export function NavBar() {
   return (
     <nav className={styles.navigation}>
       <div className={styles.contentContainer}>
-        <Link href="/">
+        <Link href="/" className={styles.foxLink}>
           <Image
             className={styles.fox}
             src={Logo}
             alt="Fox shop logo"
-            width={140}
+            width={130}
           />
         </Link>
+        <div className={styles.searchInput}>
+          <input type="text" />
+        </div>
         <div className={`${styles.linksContainer} ${openMenu ? "open" : ""}`}>
           <ul className={styles.links}>
             <li>
@@ -39,12 +42,13 @@ export function NavBar() {
             </li>
             <li className={styles.cartLink}>
               <Link href="/cart">
+                <div className={styles.amountCart}>5</div>
                 <Image
                   className={styles.bag}
                   src={Bag}
                   alt="Your shopping bag"
-                  width={40}
-                  height={36}
+                  width={35}
+                  height={30}
                 />
               </Link>
             </li>
@@ -55,9 +59,9 @@ export function NavBar() {
           className={styles.hamburger}
         >
           {openMenu ? (
-            <Image src={CloseIcon} width={40} alt="Close menu" />
+            <Image src={CloseIcon} width={30} alt="Close menu" />
           ) : (
-            <Image src={Hambrger} width={40} alt="Open menu" />
+            <Image src={Hambrger} width={30} alt="Open menu" />
           )}
         </button>
       </div>
