@@ -8,11 +8,11 @@
   max-width: 1400px;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: 150px 2fr 0px 2fr;
-  grid-template-rows: 1fr;
+  grid-template-columns: repeat(3, auto);
+  grid-template-rows: 1fr 1fr;
   @include md {
-    grid-template-columns: 150px 0px 2fr;
-    grid-template-rows: 1fr 1fr;
+    grid-template-columns: repeat(4, auto);
+    grid-template-rows: 1fr;
   }
 }
 
@@ -39,9 +39,9 @@
 }
 
 .searchInput {
-  grid-column: 1/-1;
   justify-self: center;
   padding-top: 20px;
+  grid-column: span 4;
   grid-row: 2/3;
   @include md {
     grid-column: 2/4;
