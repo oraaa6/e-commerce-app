@@ -9,6 +9,7 @@ import CloseIcon from "../../assets/png/cross-button.png";
 import Bag from "../../assets/svg/bag.svg";
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
+import { SearchInput } from "../search-input/search-input";
 
 export function NavBar() {
   const [openMenu, setOpenMenu] = useState(false);
@@ -26,11 +27,11 @@ export function NavBar() {
             className={styles.fox}
             src={Logo}
             alt="Fox shop logo"
-            width={130}
+            height={103}
           />
         </Link>
         <div className={styles.searchInput}>
-          <input type="text" />
+          <SearchInput />
         </div>
         <div className={`${styles.linksContainer} ${openMenu ? "open" : ""}`}>
           <ul className={styles.links}>

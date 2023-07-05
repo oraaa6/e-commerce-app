@@ -1,0 +1,28 @@
+.searchInputContainer {
+  position: relative;
+  border: 2px solid var(--color-gray);
+  border-radius: 10px;
+  padding: 5px;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.input {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  width: 100%;
+  padding-left: 30px;
+
+  &:focus {
+    outline: 2px solid var(--color-dark-beige);
+    outline-offset: 10px;
+    border-radius: 1px;
+  }
+}
+
+.searchIcon {
+  position: absolute;
+  bottom: 4px;
+  left: 5px;
+}
