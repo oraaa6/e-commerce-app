@@ -8,7 +8,6 @@ import axiosClient from "@/utils/axios";
 export function SearchInput() {
   const query = useQuery(["products"], () => axiosClient.get("products"));
 
-  console.log(query);
   return (
     <div className={styles.searchInputContainer}>
       <div className={styles.inputContainer}>
