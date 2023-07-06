@@ -1,0 +1,18 @@
+.button {
+  background-color: var(--color-dark-beige);
+  min-width: 100px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s;
+  color: var(--color-white);
+
+  &:hover {
+    transform: scale(1.02);
+  }
+}
+
+.slimButton {
+  background-color: transparent;
+  border: 2px solid var(--color-dark-beige);
+  color: var(--color-black);
+}

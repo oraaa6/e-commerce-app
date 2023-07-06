@@ -1,10 +1,17 @@
 .searchInputContainer {
+  display: flex;
+  max-width: 650px;
+  margin: 0 auto;
+  justify-content: space-between;
+  gap: 5px;
+}
+
+.inputContainer {
   position: relative;
   border: 2px solid var(--color-gray);
   border-radius: 10px;
   padding: 5px;
-  max-width: 500px;
-  margin: 0 auto;
+  flex: 1;
 }
 
 .input {
