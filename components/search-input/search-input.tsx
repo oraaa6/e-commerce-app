@@ -6,8 +6,6 @@ import { useQuery } from "react-query";
 import axiosClient from "@/utils/axios";
 
 export function SearchInput() {
-  const query = useQuery(["products"], () => axiosClient.get("products"));
-
   return (
     <div className={styles.searchInputContainer}>
       <div className={styles.inputContainer}>
@@ -16,7 +14,6 @@ export function SearchInput() {
           alt="Search"
           height={29}
           className={styles.searchIcon}
-          color="red"
         />
         <input
           className={styles.input}
