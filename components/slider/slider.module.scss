@@ -1,0 +1,40 @@
+
+
+.dot {
+    // position: absolute;
+    display: inline-block;
+    list-style-type: none;
+    vertical-align: middle;
+    text-align: center;
+    width: 16px;
+    height: 16px;
+    margin-top: 30px;
+    border-radius: 16px;
+    border: 2px solid var(--color-gray);
+    margin: 0 3px;
+    padding: 0;
+    &.slick-active  {
+        background-color: var(--color-dark-beige)
+    }
+  }
+
+//   .dots  {
+//     list-style-type: none;  
+//     list-style: none;
+//     cursor: pointer;
+//     display: inline-block;
+//     margin: 0 3px;
+//     padding: 0;
+//     & :global(.slick-active) {
+//         background-color: var(--color-dark-beige)
+//     }
+//   }
+
+  .container {
+    display: block;
+    & :global(.slick-dots) {
+        & :global(.slick-active) {
+            background-color: var(--color-dark-beige)
+        }
+    }
+  }
