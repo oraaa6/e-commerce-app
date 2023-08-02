@@ -1,40 +1,44 @@
 
 
 .dot {
-    // position: absolute;
-    display: inline-block;
-    list-style-type: none;
-    vertical-align: middle;
-    text-align: center;
     width: 16px;
     height: 16px;
-    margin-top: 30px;
-    border-radius: 16px;
-    border: 2px solid var(--color-gray);
-    margin: 0 3px;
-    padding: 0;
-    &.slick-active  {
-        background-color: var(--color-dark-beige)
-    }
   }
-
-//   .dots  {
-//     list-style-type: none;  
-//     list-style: none;
-//     cursor: pointer;
-//     display: inline-block;
-//     margin: 0 3px;
-//     padding: 0;
-//     & :global(.slick-active) {
-//         background-color: var(--color-dark-beige)
-//     }
-//   }
 
   .container {
     display: block;
+
+    & :global(.slick-arrow::before)
+     {
+     display: none;
+     }
+
     & :global(.slick-dots) {
+      position: relative;
+      
         & :global(.slick-active) {
-            background-color: var(--color-dark-beige)
+            background-color: var(--color-dark-beige);
+            border: 1px solid var(--color-gray);
+            border-radius: 16px;
+        }
+
+        & li {    
+          border-radius: 16px;
+          width: 16px;
+          height: 16px;
+          border: 2px solid var(--color-gray);
+          margin: 0 5px;
+         & button::before {
+          font-size: 0; 
+         }
         }
     }
+  }
+
+  .arrow {
+    height: 40px;
+    width: 30px;
+    background-color: transparent;
+    margin: 0 20px;
+    z-index: 20;
   }

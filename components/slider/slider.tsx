@@ -3,31 +3,48 @@ import { ProductCard } from "../product-card/product-card";
 import { Products } from "@/types/products.types";
 import { useRef, useState } from "react";
 import styles from './slider.module.scss'
+import Image, { StaticImageData } from "next/image";
+import ArrowRightIcon from '../../assets/svg/arrow-right.svg'
+import ArrowLeftIcon from '../../assets/svg/arrow-left.svg'
 import clsx from 'clsx'
 
-export function SliderProduct({ products }: { products: Products }) {
-  const [activeCard, setActiveCard] = useState(0);
-  const sliderRef = useRef<Slider>(null)
-  const renderCustomDot = (index: number) => {
-    console.log(index === activeCard)
-    return (<div
-      className={clsx(styles.dot)}
-    />)
-  };
+type ArrowProps = {
+image: StaticImageData;
+alt: string;
+onClick?: () => void;
+className?: string;
+style?: React.CSSProperties
+}
 
-  // console.log(activeCard)
+function Arrow({image, alt, onClick, className, style}: ArrowProps) {
+
+  return (
+    <div
+    className={clsx(className, styles.arrow)}
+    style={{ ...style, display: "block"}}
+    onClick={onClick}
+  >
+<Image
+    src={image}
+    width={30}
+    height={30}
+    alt={alt}
+    className={styles.cartImage}
+  />
+  </div>
+  );
+}
+
+
+export function SliderProduct({ products }: { products: Products }) {
+
   const settings = {
     dots: true,
     infinite: true,
     speed: 500,
-    // dotsClass: styles.dots,
     slidesToShow: 4,
     slidesToScroll: 4,
-    customPaging: renderCustomDot,
-    beforeChange: (current: number, next: number) => {
-      console.log(current, next)
-      setActiveCard(next);
-    },
+
     responsive: [
       {
         breakpoint: 1180,
@@ -53,7 +70,8 @@ export function SliderProduct({ products }: { products: Products }) {
           slidesToScroll: 1,
           initialSlide: 1,
           dots: false,
-          arrows: true,
+          nextArrow: <Arrow image={ArrowRightIcon} alt="right icon"/>,
+          prevArrow: <Arrow image={ArrowLeftIcon} alt="left icon"/>,
         },
       },
     ],
@@ -61,7 +79,7 @@ export function SliderProduct({ products }: { products: Products }) {
 
   return (
     <div className={styles.container}>
-    <Slider {...settings} ref={sliderRef}>
+    <Slider {...settings}>
       {products.map(({ id, title, price, image }) => (
         <ProductCard key={id} title={title} price={price} image={image} />
       ))}
