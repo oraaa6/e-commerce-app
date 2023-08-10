@@ -1,6 +1,5 @@
 .navigation {
-  background-color: var(--color-beige);
-  min-height: 200px;
+  border-bottom: 1px solid rgb(221, 214, 214);
   width: 100%;
 }
 
@@ -11,7 +10,7 @@
   grid-template-columns: repeat(3, auto);
   grid-template-rows: 1fr 1fr;
 
-  @include md {
+  @include sm {
     grid-template-columns: 140px 1fr 1fr 380px;
     grid-template-rows: 1fr;
   }
@@ -43,11 +42,11 @@
   width: 90%;
   min-width: 200px;
   justify-self: center;
-  padding-top: 20px;
   grid-column: span 4;
   grid-row: 2/3;
 
-  @include lg {
+  @include sm {
+    padding-top: 20px;
     grid-column: 2/4;
     grid-row: 1/1;
   }
@@ -76,6 +75,7 @@
     background-color: var(--color-dark-beige);
     width: 100%;
     height: 100%;
+    z-index: 100;
 
     @include md {
       position: static;
@@ -97,18 +97,18 @@
   }
 
   .amountCart {
-    width: 25px;
-    height: 25px;
+    width: 20px;
+    height: 20px;
     border-radius: 50%;
     background-color: var(--color-warning);
-    font-size: 14px;
+    font-size: 10px;
     color: var(--color-white);
     display: flex;
     align-items: center;
     justify-content: center;
     font-weight: 700;
     position: absolute;
-    right: -10px;
+    right: -15px;
     top: 20px;
     transition: transform 0.2s;
 
@@ -117,7 +117,7 @@
     }
 
     @include md {
-      right: -10px;
+      right: 0;
       top: -10px;
     }
   }
@@ -153,17 +153,13 @@
       padding-top: 0;
       margin: 0 20px;
       width: auto;
-      font-size: 20px;
+      font-size: 16px;
       border-bottom: none;
       transition: all 0.2s;
 
       &:hover {
         text-shadow: 0px -0px 1px rgba(66, 68, 90, 1);
       }
-    }
-
-    @include lg {
-      font-size: 22px;
     }
 
     &::before {

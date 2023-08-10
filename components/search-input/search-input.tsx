@@ -12,7 +12,7 @@ export function SearchInput() {
         <Image
           src={SearchIcon}
           alt="Search"
-          height={29}
+          height={20}
           className={styles.searchIcon}
         />
         <input
@@ -24,7 +24,7 @@ export function SearchInput() {
         />
         <label htmlFor="search" />
       </div>
-      <Button>Search</Button>
+      {/* <Button>Search</Button> */}
     </div>
   );
 }

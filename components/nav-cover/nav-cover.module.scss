@@ -1,0 +1,22 @@
+.coverContainer {
+    width: 100%;
+    background-color: var(--color-dark-yellow);
+    padding: 5px 0;
+ @include sm {
+    padding: 30px 10px;
+ }
+}
+
+.cover {
+max-height: 150px;
+margin: 0 auto;
+@include sm {
+    max-height: 200px;
+}
+@include md {
+    max-height: 300px;
+}
+@include lg {
+    max-height: 500px
+}
+}

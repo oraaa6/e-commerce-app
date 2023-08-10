@@ -5,6 +5,7 @@ import { Quicksand } from "next/font/google";
 import styles from "./layout.module.scss";
 import { NavBar } from "@/components/nav-bar/nav-bar";
 import { QueryClient, QueryClientProvider } from "react-query";
+import { BestPricesHeader } from "@/components/best-prices-header/best-prices-header";
 
 const quicksand = Quicksand({
   subsets: ["latin"],
@@ -21,6 +22,7 @@ export default function RootLayout({
     <html lang="en">
       <QueryClientProvider client={queryClient}>
         <body className={quicksand.className}>
+          <BestPricesHeader/>
           <NavBar />
           {children}
         </body>

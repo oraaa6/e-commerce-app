@@ -27,7 +27,7 @@ export function NavBar() {
             className={styles.fox}
             src={Logo}
             alt="Fox shop logo"
-            height={103}
+            height={90}
           />
         </Link>
         <div className={styles.searchInput}>
@@ -48,8 +48,8 @@ export function NavBar() {
                   className={styles.bag}
                   src={Bag}
                   alt="Your shopping bag"
-                  width={35}
-                  height={30}
+                  width={25}
+                  height={20}
                 />
               </Link>
             </li>
