@@ -10,6 +10,7 @@ import { BestPricesHeader } from "@/components/best-prices-header/best-prices-he
 import { ProductCard } from "@/components/product-card/product-card";
 import { SliderProduct } from "@/components/slider/slider";
 import { NavCover } from "@/components/nav-cover/nav-cover";
+import { CategoriesCards } from "@/components/categories-cards/categories-cards";
 
 export default function Home() {
   const query = useQuery<Products>(["products"], () =>
@@ -22,13 +23,9 @@ export default function Home() {
     <main>
       <NavCover/>
       <PageContainer>
-     
-        {/* <div className={styles.cartsContainer}> */}
-        {/* {products?.map(({ id, title, image, price }) => (
-            <ProductCard key={id} title={title} image={image} price={price} />
-          ))} */}
+     <CategoriesCards/>
         <SliderProduct products={products} />
-        {/* </div> */}
+
       </PageContainer>
     </main>
   );
