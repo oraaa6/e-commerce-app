@@ -42,8 +42,8 @@ export function SliderProduct({ products }: { products: Products }) {
     dots: true,
     infinite: true,
     speed: 500,
-    slidesToShow: 4,
-    slidesToScroll: 4,
+    slidesToShow: 3,
+    slidesToScroll: 3,
 
     responsive: [
       {
@@ -56,7 +56,7 @@ export function SliderProduct({ products }: { products: Products }) {
         },
       },
       {
-        breakpoint: 870,
+        breakpoint: 980,
         settings: {
           slidesToShow: 2,
           slidesToScroll: 2,
@@ -64,11 +64,11 @@ export function SliderProduct({ products }: { products: Products }) {
         },
       },
       {
-        breakpoint: 560,
+        breakpoint: 640,
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1,
-          initialSlide: 1,
+          initialSlide: 2,
           dots: false,
           nextArrow: <Arrow image={ArrowRightIcon} alt="right icon"/>,
           prevArrow: <Arrow image={ArrowLeftIcon} alt="left icon"/>,
@@ -79,6 +79,7 @@ export function SliderProduct({ products }: { products: Products }) {
 
   return (
     <div className={styles.container}>
+    <h1 className={styles.header}>Weekly Popular Products</h1>
     <Slider {...settings}>
       {products.map(({ id, title, price, image }) => (
         <ProductCard key={id} title={title} price={price} image={image} />

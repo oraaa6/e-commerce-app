@@ -7,7 +7,11 @@
 
   .container {
     display: block;
-
+    padding: 20px;
+    @include md {
+        padding: 50px 20px; 
+    }
+    
     & :global(.slick-arrow::before)
      {
      display: none;
@@ -42,3 +46,11 @@
     margin: 0 20px;
     z-index: 20;
   }
+
+  .header {
+    padding-bottom: 20px;
+    font-size: 25px;
+    @include md {
+        font-size: 34px;
+    }
+}

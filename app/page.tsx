@@ -23,9 +23,8 @@ export default function Home() {
     <main>
       <NavCover/>
       <PageContainer>
-     <CategoriesCards/>
+       <CategoriesCards/>
         <SliderProduct products={products} />
-
       </PageContainer>
     </main>
   );

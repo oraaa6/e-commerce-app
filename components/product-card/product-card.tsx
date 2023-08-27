@@ -11,15 +11,22 @@ type ProductCardProps = {
 export function ProductCard({ image, title, price }: ProductCardProps) {
   return (
     <div className={styles.cartContainer}>
+    <div className={styles.cartImageBgc}>
+      <div className={styles.cartImageContainer}>
       <Image
         src={image}
-        width={230}
-        height={230}
         alt={title}
+        fill
         className={styles.cartImage}
       />
-      <h3 className={styles.cartTitle}>{title}</h3>
-      <p className={styles.price}>{price}$</p>
+      </div>
+    </div>
+    <div className={styles.productDetails}>
+    <h3 className={styles.cartTitle}>{title}</h3>
+    <p className={styles.price}>{price}$</p>
+    </div>
+
+    
     </div>
   );
 }
