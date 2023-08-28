@@ -26,12 +26,12 @@
 &:hover::after {
   opacity: 1;
 }
-@include sm {
+@include md {
   max-width: initial;
-  width: 250px;
+  width: 270px;
 }
   @include lg {
-    width: 270px;
+    width: 290px;
   }
   @include xl {
     width: 330px;
@@ -43,13 +43,10 @@
   justify-content: center;
   align-items: center;
   background-color: var(--color-background-card);
-  height: 300px;
   border-radius: 10px;
   max-width: 250px;
-  padding: 0 20px;
-  // @include sm {
-  //   width: 330px;
-  // }
+  padding: 25px 20px;
+
   @include md {
     max-width: initial;
     width: 270px;
@@ -58,7 +55,6 @@
       width: 290px;
     }
     @include xl {
-      height: 300px;
       width: 330px;
     }
 }
@@ -73,9 +69,10 @@
 object-fit: contain;
 }
 
-
 .productDetails {
+  padding-top: 10px;
   width: 100%;
+  min-height: 80px;
   display: flex;
   justify-content: space-between;
 }
@@ -97,4 +94,15 @@ object-fit: contain;
   @include lg {
     font-size: 14px;
   }
+}
+
+.starsContainer {
+  display: flex;
+  gap: 2px;
+  align-items: center;
+  padding-bottom: 15px;
+}
+
+.numberOfStars {
+  margin-left: 5px;
 }

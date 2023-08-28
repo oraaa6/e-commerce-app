@@ -21,8 +21,8 @@
       position: relative;
       
         & :global(.slick-active) {
-            background-color: var(--color-dark-beige);
-            border: 1px solid var(--color-gray);
+            background-color: var(--color-dark-green);
+            border: 1px solid var(--color-dark-green);
             border-radius: 16px;
         }
 
@@ -30,7 +30,7 @@
           border-radius: 16px;
           width: 16px;
           height: 16px;
-          border: 2px solid var(--color-gray);
+          border: 2px solid var(--color-dark-green);
           margin: 0 5px;
          & button::before {
           font-size: 0; 

@@ -3,13 +3,13 @@ import styles from "./button.module.scss";
 type ButtonProps = {
   children: React.ReactNode;
   onClick?: () => void;
-  slim?: boolean;
+  white?: boolean;
 };
 
-export function Button({ children, onClick, slim = false }: ButtonProps) {
+export function Button({ children, onClick, white = false }: ButtonProps) {
   return (
     <button
-      className={`${styles.button} ${slim && styles.slimButton}`}
+      className={`${styles.button} ${white && styles.whiteButton}`}
       onClick={onClick}
     >
       {children}
