@@ -1,11 +1,10 @@
 import Slider from "react-slick";
-import { ProductCard } from "../product-card/product-card";
+import { ProductCard } from "components/product-card/product-card";
 import { Products } from "@/types/products.types";
-import { useRef, useState } from "react";
 import styles from './slider.module.scss'
 import Image, { StaticImageData } from "next/image";
-import ArrowRightIcon from '../../assets/svg/arrow-right.svg'
-import ArrowLeftIcon from '../../assets/svg/arrow-left.svg'
+import ArrowRightIcon from 'assets/svg/arrow-right.svg'
+import ArrowLeftIcon from 'assets/svg/arrow-left.svg'
 import clsx from 'clsx'
 
 type ArrowProps = {

@@ -2,8 +2,8 @@
 
 import Image from "next/image";
 import styles from "./product-card.module.scss";
-import Star from "../../assets/svg/star.svg"
-import { Button } from "../button/button";
+import Star from "assets/svg/star.svg"
+import { Button } from "components/button/button";
 
 type ProductCardProps = {
   image: string;

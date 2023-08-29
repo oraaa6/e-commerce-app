@@ -1,5 +1,5 @@
 import Image from "next/image";
-import FashionHeader from '../../assets/svg/header-fashion-sale.svg'
+import FashionHeader from 'assets/svg/header-fashion-sale.svg'
 import styles from './nav-cover.module.scss'
 
 export function NavCover () {

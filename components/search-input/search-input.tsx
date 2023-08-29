@@ -1,9 +1,6 @@
 import styles from "./search-input.module.scss";
 import Image from "next/image";
-import SearchIcon from "../../assets/svg/search-icon.svg";
-import { Button } from "../button/button";
-import { useQuery } from "react-query";
-import axiosClient from "@/utils/axios";
+import SearchIcon from "assets/svg/search-icon.svg";
 
 export function SearchInput() {
   return (

@@ -3,13 +3,13 @@
 import styles from "./nav-bar.module.scss";
 import Link from "next/link";
 import Image from "next/image";
-import Logo from "../../assets/svg/logo.svg";
-import Hambrger from "../../assets/png/hamburger.png";
-import CloseIcon from "../../assets/png/cross-button.png";
-import Bag from "../../assets/svg/bag.svg";
+import Logo from "assets/svg/logo.svg";
+import Hambrger from "assets/png/hamburger.png";
+import CloseIcon from "assets/png/cross-button.png";
+import Bag from "assets/svg/bag.svg";
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
-import { SearchInput } from "../search-input/search-input";
+import { SearchInput } from "components/search-input/search-input";
 
 export function NavBar() {
   const [openMenu, setOpenMenu] = useState(false);
