@@ -44,7 +44,7 @@ export function ProductCard({ image, title, price }: ProductCardProps) {
         <sup className={styles.numberOfStars}>(2137)</sup>
 
       </div>
-<Button white>Add to card</Button>
+<Button white slim>Add to card</Button>
 
     </div>
   );
