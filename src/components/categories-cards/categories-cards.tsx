@@ -1,10 +1,12 @@
+'use client'
+
 import styles from "./categories-card.module.scss"
 import Image from "next/image";
-import Man from "assets/png/man.jpg"
-import Woman from "assets/png/woman.jpg"
-import Jewelery from "assets/png/jewelery.jpg"
-import Tech from "assets/png/tech.jpg"
-import Sale from 'assets/png/sale.jpg'
+import Man from "@/assets/png/man.jpg"
+import Woman from "@/assets/png/woman.jpg"
+import Jewelery from "@/assets/png/jewelery.jpg"
+import Tech from "@/assets/png/tech.jpg"
+import Sale from '@/assets/png/sale.jpg'
 import Link from "next/link";
 
 

@@ -1,7 +1,9 @@
-import { Button } from "components/button/button";
+
 import styles from "./cash-back.module.scss"
 import CreditCard from 'assets/svg/credit-card.svg'
 import Image from "next/image";
+import { Button } from "@/components/button/button";
+
 
 export function CashBack() {
     return (

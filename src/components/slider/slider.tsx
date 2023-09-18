@@ -1,3 +1,5 @@
+'use client'
+
 import Slider from "react-slick";
 import { ProductCard } from "components/product-card/product-card";
 import { Products } from "@/types/products.types";

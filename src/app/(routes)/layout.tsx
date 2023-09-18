@@ -1,11 +1,10 @@
-"use client";
-
-import "../styles/globals.scss";
+import "@/styles/globals.scss";
 import { Quicksand } from "next/font/google";
 import styles from "./layout.module.scss";
-import { NavBar } from "@/components/nav-bar/nav-bar";
-import { QueryClient, QueryClientProvider } from "react-query";
 import { BestPricesHeader } from "@/components/best-prices-header/best-prices-header";
+import { NavBar } from "@/components/nav-bar/nav-bar";
+
+
 
 const quicksand = Quicksand({
   subsets: ["latin"],
@@ -17,16 +16,14 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const queryClient = new QueryClient();
+
   return (
     <html lang="en">
-      <QueryClientProvider client={queryClient}>
         <body className={quicksand.className}>
           <BestPricesHeader/>
           <NavBar />
           {children}
         </body>
-      </QueryClientProvider>
     </html>
   );
 }
