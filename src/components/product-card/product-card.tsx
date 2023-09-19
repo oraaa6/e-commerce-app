@@ -4,14 +4,20 @@ import Image from "next/image";
 import styles from "./product-card.module.scss";
 import Star from "assets/svg/star.svg"
 import { Button } from "components/button/button";
+import Link from "next/link";
+import { createSearchParam } from "@/utils/get-search-params";
 
 type ProductCardProps = {
   image: string;
   title: string;
   price: string;
+  id: string;
 };
-export function ProductCard({ image, title, price }: ProductCardProps) {
+export function ProductCard({ image, title, price, id }: ProductCardProps) {
+
+  const param = createSearchParam(title)
   return (
+    <Link href={`/product-${id}`}>
     <div className={styles.cartContainer}>
       <div className={styles.cartImageBgc}>
         <div className={styles.cartImageContainer}>
@@ -47,5 +53,6 @@ export function ProductCard({ image, title, price }: ProductCardProps) {
 <Button white slim>Add to card</Button>
 
     </div>
+    </Link>
   );
 }
