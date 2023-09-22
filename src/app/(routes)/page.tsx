@@ -22,13 +22,13 @@ export default async function Home() {
 const products: Products = await getProducts()
 
   return (
-    <main>
+    <>
       <NavCover />
       <PageContainer>
         <CategoriesCards />
         {products && <SliderProduct products={products} />}
       </PageContainer>
       <CashBack />
-    </main>
+    </>
   );
 }

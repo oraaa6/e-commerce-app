@@ -1,0 +1,7 @@
+.header {
+    padding-bottom: 20px;
+    font-size: 25px;
+    @include md {
+        font-size: 34px;
+    }
+}
