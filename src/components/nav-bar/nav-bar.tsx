@@ -10,10 +10,29 @@ import Bag from "assets/svg/bag.svg";
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { SearchInput } from "components/search-input/search-input";
+import { useAuth } from "@/context/auth-context";
+import { toast } from 'react-toastify';
+import { useRouter } from "next/navigation";
 
 export function NavBar() {
   const [openMenu, setOpenMenu] = useState(false);
   const pathname = usePathname();
+  const router = useRouter()
+
+  const { currentUser, logout } = useAuth()
+
+  const onLogOut = async () => {
+    try {
+      await logout()
+      if (pathname !== '/') {
+        router.push("/")
+      }
+      toast.success('Logout successful')
+    }
+    catch {
+      toast.error('Logout failed')
+    }
+  }
 
   useEffect(() => {
     setOpenMenu(false);
@@ -36,10 +55,10 @@ export function NavBar() {
         <div className={`${styles.linksContainer} ${openMenu ? "open" : ""}`}>
           <ul className={styles.links}>
             <li>
-              <Link href="/register">Register</Link>
+              <Link href="/signup">Sign Up</Link>
             </li>
             <li>
-              <Link href="/login">Login</Link>
+              {currentUser ? <button onClick={onLogOut} className={styles.logoutButton}>LOGOUT</button> : <Link href="/login">LOGIN</Link>}
             </li>
             <li className={styles.cartLink}>
               <Link href="/cart">

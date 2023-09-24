@@ -3,6 +3,8 @@ import { Quicksand } from "next/font/google";
 import styles from "./layout.module.scss";
 import { BestPricesHeader } from "@/components/best-prices-header/best-prices-header";
 import { NavBar } from "@/components/nav-bar/nav-bar";
+import { AuthProvider } from "@/context/auth-context";
+import { ToastContainer } from "react-toastify";
 
 
 
@@ -19,11 +21,16 @@ export default function RootLayout({
 
   return (
     <html lang="en">
-        <body className={quicksand.className}>
-          <BestPricesHeader/>
+
+      <body className={quicksand.className}>
+        <AuthProvider>
+        <ToastContainer className={styles.toast} autoClose={2000} hideProgressBar={true}/>
+          <BestPricesHeader />
           <NavBar />
           {children}
-        </body>
+        </AuthProvider>
+      </body>
+
     </html>
   );
 }
