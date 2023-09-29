@@ -9,7 +9,7 @@ import { validateEmail } from "@/utils/email-validation";
 import { BaseSyntheticEvent } from "react";
 import { useAuth } from "@/context/auth-context";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -18,32 +18,30 @@ type FormValues = {
   password: string;
 }
 
-export default function Login() {
-const { login } = useAuth()
-const router = useRouter()
+export default function ForgotPassword() {
+
   const { handleSubmit, control, formState: { isDirty, isValid, errors, isSubmitting }, setError } = useForm<FormValues>({
     mode: 'all',
     defaultValues: {
-      login: '',
-      password: '',
+      login: ''
     }
   })
+
+  const {resetPassword} = useAuth()
   const onSubmit = async (data: FormValues, event?: BaseSyntheticEvent) => {
     event?.preventDefault()
-
     try {
-      await login(data.login, data.password)
-      router.push('/')
-      toast.success('Login successful')
+      await resetPassword(data.login)
+      toast.success('Password has been sent!')
     } catch {
-      setError('root', { message: 'Failed to log in. Email or password may be invalid' })
+      setError('root', { message: 'Failed to reset password' })
     }
 
   }
 
   return (
     <PageContainer>
-      <h1 className={styles.header}>Hello, it's nice to see you again!</h1>
+      <h1 className={styles.header}>Remind password</h1>
       <div className={styles.formContainer}>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Controller
@@ -54,19 +52,10 @@ const router = useRouter()
               <Input name="login" label="Login *" value={value} onChange={onChange} errorMessage={error?.message} />
             )}
           />
-          <Controller
-            control={control}
-            name="password"
-            rules={{ required: { value: true, message: 'Password is reqired' }, }}
-            render={({ field: { onChange, value }, fieldState: { error } }) => (
-              <Input name="password" label="Password *" value={value} onChange={onChange} errorMessage={error?.message} />
-            )}
-          />
             <Button type="submit" disabled={!isDirty || !isValid || isSubmitting}>Submit</Button>
           <p>{errors.root?.message}</p>
         </form>
-        <p>Need an account? <Link href="/signup">Sign up</Link></p>
-        <p><Link href="/forgot-password">Forgot password?</Link></p>
+       <Link href="/login">Log in</Link>
       </div>
     </PageContainer>
 
