@@ -32,7 +32,7 @@ export default function ForgotPassword() {
     event?.preventDefault()
     try {
       await resetPassword(data.login)
-      toast.success('Password has been sent!')
+      toast.success('Check your password for further instructions')
     } catch {
       setError('root', { message: 'Failed to reset password' })
     }

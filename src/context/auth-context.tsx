@@ -2,7 +2,7 @@
 
 import { ReactNode, createContext, useContext, useState, useEffect } from 'react';
 import { auth } from '@/firebase';
-import { User, UserCredential, createUserWithEmailAndPassword, sendPasswordResetEmail, signInWithEmailAndPassword } from "firebase/auth";
+import { User, UserCredential, createUserWithEmailAndPassword, sendPasswordResetEmail, signInWithEmailAndPassword, updateCurrentUser, updatePassword, updateProfile } from "firebase/auth";
 
 
 type AuthContextType = {
@@ -11,9 +11,10 @@ type AuthContextType = {
     login: (email: string, password: string) => Promise<UserCredential>
     logout: () => Promise<void>;
     resetPassword: (email: string) => Promise<void>;
+    changePassword: (user: User, newPassword: string) => Promise<void>;
 }
 
-const AuthContext = createContext<AuthContextType>({ currentUser: null, signup: async (email, password) => { return {} as UserCredential }, login: async (email, password) => { return {} as UserCredential }, logout: async () => {}, resetPassword: async (email) => { } })
+const AuthContext = createContext<AuthContextType>({ currentUser: null, signup: async (email, password) => { return {} as UserCredential }, login: async (email, password) => { return {} as UserCredential }, logout: async () => { }, resetPassword: async (email) => { }, changePassword: async (user, newPassword) => { } })
 
 export function useAuth() {
     return useContext(AuthContext)
@@ -38,7 +39,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     function logout() {
         return auth.signOut()
     }
-
+    function changePassword(user: User, newPassword: string) {
+        return updatePassword(user, newPassword)
+    }
 
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged(user => {
@@ -54,7 +57,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         signup,
         login,
         logout,
-        resetPassword
+        resetPassword,
+        changePassword
     }
 
     return (
