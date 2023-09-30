@@ -5,6 +5,7 @@ import { BestPricesHeader } from "@/components/best-prices-header/best-prices-he
 import { NavBar } from "@/components/nav-bar/nav-bar";
 import { AuthProvider } from "@/context/auth-context";
 import { ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 
 

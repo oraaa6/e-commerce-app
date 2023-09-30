@@ -8,11 +8,11 @@ import { Controller, useForm } from "react-hook-form";
 import { Button } from "@/components/button/button";
 import { useAuth } from "@/context/auth-context";
 import { BaseSyntheticEvent } from "react";
-import { validateEmail } from "@/utils/email-validation";
 import { strongPasswordValidation } from "@/utils/strong-password-validation";
-import Link from "next/link";
 import { toast } from "react-toastify";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
+import Check from 'assets/svg/check.svg'
+import Image from "next/image";
 
 
 type FormValues = {
@@ -25,7 +25,7 @@ function Profile() {
 
   const { currentUser, changePassword } = useAuth()
   const router = useRouter()
-  const { handleSubmit, control, watch, formState: { isDirty, isValid, errors, isSubmitting }, setError } = useForm<FormValues>({
+  const { handleSubmit, reset, control, watch, formState: { isDirty, isValid, errors, isSubmitting }, setError } = useForm<FormValues>({
     mode: 'all',
     defaultValues: {
       login: currentUser?.email!,
@@ -42,7 +42,13 @@ function Profile() {
     try {
       await changePassword(currentUser!, data.password)
       router.push('/')
-      toast.success('Password successfuly changed')
+      toast.success('Password successfuly changed', {
+        icon: () =>
+        (<Image
+          src={Check}
+          alt="check"
+          height={50} />)
+      })
     } catch {
       setError('root', { message: 'Failed to change password. Try later' })
     }
@@ -52,40 +58,40 @@ function Profile() {
   return (
     <PageContainer>
       <h1 className={styles.header}>Update your profile!</h1>
-      <div className={styles.formContainer}>
-
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <Controller
-            control={control}
-            name="login"
-            render={({ field: { value }}) => (
-              <Input name="login" label="Login" value={value} disabled/>
-            )}
-          />
-          <Controller
-            control={control}
-            name="password"
-            rules={{ validate: strongPasswordValidation }}
-            render={({ field: { onChange, value }, fieldState: { error } }) => (
-              <Input name="password" label="Password" value={value} onChange={onChange} errorMessage={error?.message} placeholder="Leave blank to keep the same"/>
-            )}
-          />
-          <Controller
-            control={control}
-            name="passwordConfirmation"
-            rules={{ validate: value => value === currentPassword || 'Password and Password Confirmation don\'t match' }}
-            render={({ field: { onChange, value }, fieldState: { error } }) => (
-              <Input name="password-confirmation" label="Password Confirmation" value={value} onChange={onChange} errorMessage={error?.message} placeholder="Leave blank to keep the same"/>
-            )}
-          />
+      <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
+        <Controller
+          control={control}
+          name="login"
+          render={({ field: { value } }) => (
+            <Input name="login" label="Login" value={value} disabled />
+          )}
+        />
+        <Controller
+          control={control}
+          name="password"
+          rules={{ validate: strongPasswordValidation }}
+          render={({ field: { onChange, value }, fieldState: { error } }) => (
+            <Input name="password" withIcon inputType="password" label="New password" value={value} onChange={onChange} errorMessage={error?.message} />
+          )}
+        />
+        <Controller
+          control={control}
+          name="passwordConfirmation"
+          rules={{ validate: value => value === currentPassword || 'Password and Password Confirmation don\'t match' }}
+          render={({ field: { onChange, value }, fieldState: { error } }) => (
+            <Input name="password-confirmation" withIcon inputType="password" label="Password Confirmation" value={value} onChange={onChange} errorMessage={error?.message} />
+          )}
+        />
+        <div className={styles.buttonsContainer}>
           <Button type="submit" disabled={!isDirty || !isValid || isSubmitting}>Submit</Button>
-          <Button>Cancel</Button>
-          <p>{errors.root?.message}</p>
-        </form>
-      </div>
+          <Button onClick={() => reset()}>Cancel</Button>
+        </div>
+
+        <p className={styles.submitError}>{errors.root?.message}</p>
+      </form>
     </PageContainer>
 
   )
 }
 
-  export default PrivateRoute(Profile)
+export default PrivateRoute(Profile)

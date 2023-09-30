@@ -13,6 +13,9 @@ import { SearchInput } from "components/search-input/search-input";
 import { useAuth } from "@/context/auth-context";
 import { toast } from 'react-toastify';
 import { useRouter } from "next/navigation";
+import Check from 'assets/svg/check.svg'
+import Cross from 'assets/svg/cross.svg'
+import User from 'assets/svg/user.svg'
 
 export function NavBar() {
   const [openMenu, setOpenMenu] = useState(false);
@@ -27,10 +30,22 @@ export function NavBar() {
       if (pathname !== '/') {
         router.push("/")
       }
-      toast.success('Logout successful')
+      toast.success('Logout successful', {
+        icon: () =>
+        (<Image
+          src={Check}
+          alt="check"
+          height={50} />)
+      })
     }
     catch {
-      toast.error('Logout failed')
+      toast.error('Logout failed', {
+        icon: () =>
+        (<Image
+          src={Cross}
+          alt="check"
+          height={50} />)
+      })
     }
   }
 
@@ -59,6 +74,16 @@ export function NavBar() {
             </li>
             <li>
               {currentUser ? <button onClick={onLogOut} className={styles.logoutButton}>LOGOUT</button> : <Link href="/login">LOGIN</Link>}
+            </li>
+            <li className={styles.profileLink}>
+              <Link href={currentUser ? "/profile" : "/login"}>
+                <Image
+                  className={styles.user}
+                  src={User}
+                  alt="profile"
+                  height={35}
+                />
+              </Link>
             </li>
             <li className={styles.cartLink}>
               <Link href="/cart">

@@ -8,10 +8,10 @@ import { Button } from "@/components/button/button";
 import { validateEmail } from "@/utils/email-validation";
 import { BaseSyntheticEvent } from "react";
 import { useAuth } from "@/context/auth-context";
-import Link from "next/link";
-
+import Check from 'assets/svg/check.svg'
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Image from "next/image";
 
 type FormValues = {
   login: string;
@@ -27,12 +27,18 @@ export default function ForgotPassword() {
     }
   })
 
-  const {resetPassword} = useAuth()
+  const { resetPassword } = useAuth()
   const onSubmit = async (data: FormValues, event?: BaseSyntheticEvent) => {
     event?.preventDefault()
     try {
       await resetPassword(data.login)
-      toast.success('Check your password for further instructions')
+      toast.success('Check your password for further instructions', {
+        icon: () =>
+        (<Image
+          src={Check}
+          alt="check"
+          height={50} />)
+      })
     } catch {
       setError('root', { message: 'Failed to reset password' })
     }
@@ -42,21 +48,18 @@ export default function ForgotPassword() {
   return (
     <PageContainer>
       <h1 className={styles.header}>Remind password</h1>
-      <div className={styles.formContainer}>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
         <Controller
-            control={control}
-            name="login"
-            rules={{ required: { value: true, message: 'Login is reqired' }, validate: validateEmail }}
-            render={({ field: { onChange, value }, fieldState: { error } }) => (
-              <Input name="login" label="Login *" value={value} onChange={onChange} errorMessage={error?.message} />
-            )}
-          />
-            <Button type="submit" disabled={!isDirty || !isValid || isSubmitting}>Submit</Button>
-          <p>{errors.root?.message}</p>
-        </form>
-       <Link href="/login">Log in</Link>
-      </div>
+          control={control}
+          name="login"
+          rules={{ required: { value: true, message: 'Login is required' }, validate: validateEmail }}
+          render={({ field: { onChange, value }, fieldState: { error } }) => (
+            <Input name="login" label="Login *" value={value} onChange={onChange} errorMessage={error?.message} />
+          )}
+        />
+        <Button type="submit" disabled={!isDirty || !isValid || isSubmitting}>Submit</Button>
+        <p className={styles.submitError}>{errors.root?.message}</p>
+      </form>
     </PageContainer>
 
   )

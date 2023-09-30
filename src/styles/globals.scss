@@ -11,15 +11,21 @@
 
   /* colors */
   --color-white: #fff;
+  --color-light-gray:#e6e2e2;
   --color-gray: #acacac;
   --color-black: #000000;
   --color-light-beige: #faf8ee;
   --color-beige: #faedcd;
   --color-dark-beige: #d4a373;
   --color-warning: rgb(245, 143, 143);
+  --color-error: rgb(180, 5, 5);
   --color-dark-green: #003d29;
   --color-dark-yellow: #a79e27;
   --color-background-card: #f5f6f6;
+
+  .Toastify__toast-body {
+    font-family: "QuickSand";
+  }
 }
 
 @media (prefers-color-scheme: dark) {
@@ -65,7 +71,6 @@ html,
 body {
   max-width: 100vw;
   overflow-x: hidden;
-  // background-color: #fcf9f2;
 }
 
 a {
