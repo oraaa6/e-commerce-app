@@ -16,6 +16,7 @@ import { useRouter } from "next/navigation";
 import Check from 'assets/svg/check.svg'
 import Cross from 'assets/svg/cross.svg'
 import User from 'assets/svg/user.svg'
+import { Dropdown } from "@/components/dropdown/dropdown";
 
 export function NavBar() {
   const [openMenu, setOpenMenu] = useState(false);
@@ -67,8 +68,15 @@ export function NavBar() {
         <div className={styles.searchInput}>
           <SearchInput />
         </div>
+
         <div className={`${styles.linksContainer} ${openMenu ? "open" : ""}`}>
-          <ul className={styles.links}>
+        <Dropdown options={[{label: 'SIGN UP', href: "/signup" }, { label: currentUser ? 'LOGOUT' : "LOGIN", href: currentUser ? "/profile" : "/login"}]} trigger={                <Image
+                  className={styles.user}
+                  src={User}
+                  alt="profile"
+                  height={35}
+                />}/>
+          {/* <ul className={styles.links}>
             <li>
               <Link href="/signup">Sign Up</Link>
             </li>
@@ -97,7 +105,7 @@ export function NavBar() {
                 />
               </Link>
             </li>
-          </ul>
+          </ul> */}
         </div>
         <button
           onClick={() => setOpenMenu((prevState) => !prevState)}

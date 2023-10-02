@@ -28,7 +28,7 @@ export default function Login() {
     mode: 'all',
     defaultValues: {
       login: '',
-      password: '',
+      password: ''
     }
   })
   const onSubmit = async (data: FormValues, event?: BaseSyntheticEvent) => {

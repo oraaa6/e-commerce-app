@@ -16,7 +16,7 @@ import Image from "next/image";
 
 
 type FormValues = {
-  login: string;
+  login?: string;
   password: string;
   passwordConfirmation: string;
 }
@@ -25,7 +25,7 @@ function Profile() {
 
   const { currentUser, changePassword } = useAuth()
   const router = useRouter()
-  const { handleSubmit, reset, control, watch, formState: { isDirty, isValid, errors, isSubmitting }, setError } = useForm<FormValues>({
+  const { handleSubmit, reset, setValue, control, watch, formState: { isDirty, isValid, errors, isSubmitting }, setError } = useForm<FormValues>({
     mode: 'all',
     defaultValues: {
       login: currentUser?.email!,
@@ -49,7 +49,9 @@ function Profile() {
           alt="check"
           height={50} />)
       })
-    } catch {
+    } catch (error) {
+      // console.log(error)
+      //   (['password', 'passwordConfirmation'] as const).forEach((field) => setValue(field, ''))
       setError('root', { message: 'Failed to change password. Try later' })
     }
 
