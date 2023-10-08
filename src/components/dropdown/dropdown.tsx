@@ -1,30 +1,48 @@
 import * as React from 'react';
-import { ReactNode, useState } from 'react';
+import { ReactNode, useState, useEffect, useRef, KeyboardEventHandler } from 'react';
 import styles from './dropdown.module.scss'
 import Link from 'next/link';
+import { usePathname } from "next/navigation";
+import useClickOutside from '@/hooks/use-click-outside';
+import { useCloseMenuByEscape } from '@/hooks/use-close-menu-by-escape';
 
 type Option = {
   label: ReactNode;
   href?: string;
+  onClick?: () => void;
 }
 
-export function Dropdown({options, trigger}: {options: Option[], trigger: ReactNode}) {
+export function Dropdown({ options, trigger }: { options: Option[], trigger: ReactNode }) {
   const [open, setOpen] = useState(false);
+  const pathname = usePathname();
+  const dropdownRef = useRef<HTMLDivElement>(null)
+
+  useClickOutside({ elementRef: dropdownRef, setOpen })
+
+  useCloseMenuByEscape({setOpen})
+
+  useEffect(() => {
+    setOpen(false);
+  }, [pathname]);
 
   const handleOpen = () => {
     setOpen(!open);
   };
 
   return (
-    <div className={styles.dropdown}>
+    <div className={styles.dropdown} ref={dropdownRef} >
       <button className={styles.trigger} onClick={handleOpen}>{trigger}</button>
       {open ? (
         <ul className={styles.menu}>
-          {options.map(({ label, href }) => (
-            href ? 
-            <Link href={href}>{label}</Link> :
+          {options.map(({ href, label, onClick }) => (
+            href ? <Link href={href} className={styles.menuItem} onClick={() => setOpen(false)}>{label}</Link> :
               <li className={styles.menuItem}>
-                <button>{label}</button>
+                <button className={styles.menuItem} onClick={() => {
+                  setOpen(false);
+                  if (onClick) {
+                    onClick()
+                  }
+                }}>{label}</button>
               </li>
           ))}
         </ul>
@@ -32,3 +50,5 @@ export function Dropdown({options, trigger}: {options: Option[], trigger: ReactN
     </div>
   );
 };
+
+

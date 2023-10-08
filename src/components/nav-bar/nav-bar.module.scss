@@ -1,18 +1,19 @@
 .navigation {
   border-bottom: 1px solid rgb(221, 214, 214);
   width: 100%;
+  background-color: var(--color-background-navigation);
 }
 
 .contentContainer {
   max-width: 1400px;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: repeat(3, auto);
-  grid-template-rows: 1fr 1fr;
+  grid-template-columns: auto 1fr auto;
+  grid-template-rows: 1fr 60px;
 
-  @include sm {
-    grid-template-columns: 140px 1fr 1fr 380px;
-    grid-template-rows: 1fr;
+  @include md {
+    grid-template-columns: 140px 1fr 200px;
+    grid-template-rows: 1fr 60px;
   }
 }
 
@@ -20,9 +21,11 @@
   position: relative;
   justify-self: end;
   padding: 20px;
-  z-index: 100;
-  grid-column: 4/5;
+  z-index: 101;
+  grid-column: 3/4;
   grid-row: 1/2;
+  min-width: 80px;
+
   @include md {
     display: none;
   }
@@ -33,49 +36,69 @@
 }
 
 .fox {
-  padding: 20px;
   position: relative;
   z-index: 101;
+  width: 50px;
+  margin-left: 10px;
+  margin-right: 20px;
+
+  @include sm {
+    padding: 20px;
+    padding: 20px;
+    margin: 0;
+    width: fit-content;
+  }
 }
 
 .searchInput {
-  width: 90%;
+
   min-width: 200px;
   justify-self: center;
-  grid-column: span 4;
+  grid-column: 1/4;
   grid-row: 2/3;
 
   @include sm {
+    width: 90%;
+  }
+
+  @include md {
     padding-top: 20px;
-    grid-column: 2/4;
-    grid-row: 1/1;
+    grid-column: 2/3;
+    grid-row: 1/2;
   }
 }
 
-.linksContainer {
+.categoriesContainer {
+  grid-column: 1/4;
+  grid-row: 2/3;
+  margin: 0 auto;
+  justify-content: center;
+  align-self: center;
   visibility: hidden;
   opacity: 0;
   transition: all 0.3s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
-  @include md {
-    display: block;
-    visibility: visible;
-    justify-self: end;
-    opacity: 1;
-    grid-column: 4/5;
-    grid-row: 1/2;
-  }
 
-  &:global(.open) {
-    // global - when I don't want to hash `open` class
+
+  &.open {
     visibility: visible;
     opacity: 1;
     padding: 0;
     position: absolute;
     background-color: var(--color-dark-beige);
-    width: 100%;
-    height: 100%;
+    inset: 0;
     z-index: 100;
+ 
+
+    & .categoryLink {
+      height: 60px;
+      font-size: 30px;
+      justify-content: center;
+      align-items: center;
+    }
 
     @include md {
       position: static;
@@ -83,17 +106,53 @@
       height: auto;
       background-color: transparent;
     }
+
+  }
+
+  @include md {
+    flex-direction: row;
+    visibility: visible;
+    justify-self: end;
+    opacity: 1;
+  }
+
+  & .categoryLink {
+    padding: 0 20px;
+    text-transform: uppercase;
+    transition: text-shadow 0.3s;
+
+    @include lg {
+      font-size: 20px;
+    }
+
+    &:hover {
+      text-shadow: 0px -0px 1px rgba(66, 68, 90, 1);
+    }
+  }
+}
+
+
+.profileContainer {
+  display: flex;
+  min-width: 100px;
+  gap: 30px;
+  align-items: center;
+  width: 100%;
+  grid-column: 2/3;
+  grid-row: 1;
+  justify-content: flex-end;
+
+  @include md {
+    min-width: 200px;
+    justify-content: space-around;
+    grid-column: 3/4;
+    grid-row: 1;
+    justify-self: end;
+    gap: 0 
   }
 
   .cartLink {
-    width: 35px;
-    padding-bottom: 10px;
     position: relative;
-    margin: 0 auto;
-
-    @include md {
-      margin: 0 20px;
-    }
   }
 
   .amountCart {
@@ -108,79 +167,12 @@
     justify-content: center;
     font-weight: 700;
     position: absolute;
-    right: -15px;
-    top: 20px;
+    left: 12px;
+    bottom: 13px;
     transition: transform 0.2s;
 
     &:hover {
       transform: scale(1.05);
-    }
-
-    @include md {
-      right: 0;
-      top: -10px;
-    }
-  }
-  & .links {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-
-    @include md {
-      display: flex;
-      justify-content: end;
-      align-items: center;
-      width: 380px;
-      padding: 20px;
-      position: static;
-      transform: initial;
-    }
-  }
-
-  & li {
-    padding-top: 40px;
-    text-transform: uppercase;
-    text-align: center;
-    width: 100%;
-    font-size: 26px;
-    border-bottom: 1px solid black;
-    transition: all 0.25s linear;
-    position: relative;
-
-    @include md {
-      padding-top: 0;
-      margin: 0 20px;
-      width: auto;
-      font-size: 16px;
-      border-bottom: none;
-      transition: all 0.2s;
-
-      &:hover {
-        text-shadow: 0px -0px 1px rgba(66, 68, 90, 1);
-      }
-    }
-
-    &::before {
-      content: "";
-      display: block;
-      width: 100%;
-      height: 1px;
-      background-color: var(--color-light-beige);
-      position: absolute;
-      left: 0;
-      bottom: -1px; /* this is to match where the border is */
-      transform-origin: left;
-      transform: scale(0);
-      transition: 0.25s linear;
-
-      @include md {
-        background-color: transparent;
-      }
-    }
-
-    &:hover::before {
-      transform: scale(1);
     }
   }
 }

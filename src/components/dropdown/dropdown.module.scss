@@ -1,17 +1,33 @@
 .dropdown {
     position: relative;
-  }
-  
-  .menu {
+
+}
+
+.menu {
     position: absolute;
-  display: flex;
-  flex-direction: column;
+    display: flex;
+    flex-direction: column;
     list-style-type: none;
+    right: 0;
+    right: -5px;
+    top: 30px;
     margin: 5px 0;
-    padding: 0;
-  border: 1px solid rgb(221, 214, 214);
-  padding: 10px;
-  border-radius: 20px;
-    width: 150px;
-  }
-  
+    border: 1px solid rgb(221, 214, 214);
+    padding: 8px;
+    border-radius: 10px;
+    width: 140px;
+    background-color: var(--color-white);
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
+    text-align: center;
+}
+
+.menuItem {
+    transition: text-shadow 0.3s;
+    &:hover {
+            text-shadow: 0px -0px 1px rgba(66, 68, 90, 1);
+    }
+}
+
+.trigger {
+    cursor: pointer;
+}

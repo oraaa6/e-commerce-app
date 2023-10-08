@@ -17,11 +17,26 @@ import Check from 'assets/svg/check.svg'
 import Cross from 'assets/svg/cross.svg'
 import User from 'assets/svg/user.svg'
 import { Dropdown } from "@/components/dropdown/dropdown";
+import clsx from "clsx";
+import { useCloseMenuByEscape } from "@/hooks/use-close-menu-by-escape";
 
 export function NavBar() {
   const [openMenu, setOpenMenu] = useState(false);
   const pathname = usePathname();
   const router = useRouter()
+
+  useCloseMenuByEscape({ setOpen: setOpenMenu })
+
+  useEffect(() => {
+    if (openMenu === true) {
+      window.document.body.style.overflow = 'hidden'
+    } else {
+    window.document.body.style.overflow = 'visible' }
+  }, [openMenu])
+
+  useEffect(() => {
+    setOpenMenu(false)
+  }, [])
 
   const { currentUser, logout } = useAuth()
 
@@ -54,10 +69,12 @@ export function NavBar() {
     setOpenMenu(false);
   }, [pathname]);
 
+
+
   return (
     <nav className={styles.navigation}>
       <div className={styles.contentContainer}>
-        <Link href="/" className={styles.foxLink}>
+        <Link href="/" className={styles.foxLink} onClick={() => setOpenMenu(false)}>
           <Image
             className={styles.fox}
             src={Logo}
@@ -69,44 +86,28 @@ export function NavBar() {
           <SearchInput />
         </div>
 
-        <div className={`${styles.linksContainer} ${openMenu ? "open" : ""}`}>
-        <Dropdown options={[{label: 'SIGN UP', href: "/signup" }, { label: currentUser ? 'LOGOUT' : "LOGIN", href: currentUser ? "/profile" : "/login"}]} trigger={                <Image
-                  className={styles.user}
-                  src={User}
-                  alt="profile"
-                  height={35}
-                />}/>
-          {/* <ul className={styles.links}>
-            <li>
-              <Link href="/signup">Sign Up</Link>
-            </li>
-            <li>
-              {currentUser ? <button onClick={onLogOut} className={styles.logoutButton}>LOGOUT</button> : <Link href="/login">LOGIN</Link>}
-            </li>
-            <li className={styles.profileLink}>
-              <Link href={currentUser ? "/profile" : "/login"}>
-                <Image
-                  className={styles.user}
-                  src={User}
-                  alt="profile"
-                  height={35}
-                />
-              </Link>
-            </li>
-            <li className={styles.cartLink}>
-              <Link href="/cart">
-                <div className={styles.amountCart}>5</div>
-                <Image
-                  className={styles.bag}
-                  src={Bag}
-                  alt="Your shopping bag"
-                  width={25}
-                  height={20}
-                />
-              </Link>
-            </li>
-          </ul> */}
-        </div>
+        <ul className={styles.profileContainer}>
+          <li className={styles.cartLink}>
+            <Link href="/cart">
+              <div className={styles.amountCart}>5</div>
+              <Image
+                className={styles.bag}
+                src={Bag}
+                alt="Your shopping bag"
+                width={25}
+                height={20}
+              />
+            </Link>
+          </li>
+          <li className={styles.cartLink}>
+            <Dropdown options={[{ label: 'SIGN UP', href: "/signup" }, { label: currentUser ? 'LOGOUT' : "LOGIN", href: currentUser ? undefined : "/login", onClick: currentUser ? onLogOut : undefined }, { label: 'PROFILE', href: '/login' }]} trigger={<Image
+              className={styles.user}
+              src={User}
+              alt="profile"
+              height={35}
+            />} /></li>
+        </ul>
+
         <button
           onClick={() => setOpenMenu((prevState) => !prevState)}
           className={styles.hamburger}
@@ -117,6 +118,33 @@ export function NavBar() {
             <Image src={Hambrger} width={30} alt="Open menu" />
           )}
         </button>
+        <ul className={clsx(styles.categoriesContainer, openMenu && styles.open)}>
+          <li className={styles.categoryLink}>
+            <Link href="/men">
+              Men's
+            </Link>
+          </li>
+          <li className={styles.categoryLink}>
+            <Link href="/women">
+              Women's
+            </Link>
+          </li>
+          <li className={styles.categoryLink}>
+            <Link href="/jewelery">
+              Jewelery
+            </Link>
+          </li>
+          <li className={styles.categoryLink}>
+            <Link className={styles.categoryLink} href="/tech">
+              Tech
+            </Link>
+          </li>
+          <li className={styles.categoryLink}>
+            <Link href="/sale">
+              Sale
+            </Link>
+          </li>
+        </ul>
       </div>
     </nav>
   );
