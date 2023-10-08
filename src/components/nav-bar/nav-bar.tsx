@@ -100,7 +100,7 @@ export function NavBar() {
             </Link>
           </li>
           <li className={styles.cartLink}>
-            <Dropdown options={[{ label: 'SIGN UP', href: "/signup" }, { label: currentUser ? 'LOGOUT' : "LOGIN", href: currentUser ? undefined : "/login", onClick: currentUser ? onLogOut : undefined }, { label: 'PROFILE', href: '/login' }]} trigger={<Image
+            <Dropdown options={[{ label: 'SIGN UP', href: "/signup" }, { label: currentUser ? 'LOGOUT' : "LOGIN", href: currentUser ? undefined : "/login", onClick: currentUser ? onLogOut : undefined }, { label: 'PROFILE', href:  currentUser ? '/profile' :'/login' }]} trigger={<Image
               className={styles.user}
               src={User}
               alt="profile"
