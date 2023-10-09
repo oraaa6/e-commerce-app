@@ -16,9 +16,13 @@ import Image from "next/image";
 
 
 type FormValues = {
-  login?: string;
-  password: string;
-  passwordConfirmation: string;
+  login: string;
+  name?: string;
+  surname?: string;
+  address?: string;
+  postcode?: string;
+  password?: string;
+  passwordConfirmation?: string;
 }
 
 function Profile() {
@@ -29,6 +33,10 @@ function Profile() {
     mode: 'all',
     defaultValues: {
       login: currentUser?.email!,
+      name: '',
+      surname: '',
+      address: '',
+      postcode: '',
       password: '',
       passwordConfirmation: ''
     }
@@ -40,15 +48,18 @@ function Profile() {
     event?.preventDefault()
 
     try {
-      await changePassword(currentUser!, data.password)
-      router.push('/')
-      toast.success('Password successfuly changed', {
-        icon: () =>
-        (<Image
-          src={Check}
-          alt="check"
-          height={50} />)
-      })
+      if (data.password) {
+        await changePassword(currentUser!, data.password)
+        router.push('/')
+        toast.success('Password successfuly changed', {
+          icon: () =>
+          (<Image
+            src={Check}
+            alt="check"
+            height={50} />)
+        })
+      }
+
     } catch (error) {
       // console.log(error)
       //   (['password', 'passwordConfirmation'] as const).forEach((field) => setValue(field, ''))
@@ -61,17 +72,43 @@ function Profile() {
     <PageContainer>
       <h1 className={styles.header}>Update your profile!</h1>
       <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
+        <Input name="login" label="Login" value={currentUser?.email!} disabled />
         <Controller
           control={control}
-          name="login"
-          render={({ field: { value } }) => (
-            <Input name="login" label="Login" value={value} disabled />
+          name="name"
+          rules={{ required: false, minLength: { value: 3, message: 'Name should have at least 3 characters' }, maxLength: { value: 50, message: 'Name should have less than 50 characters' } }}
+          render={({ field: { onChange, value }, fieldState: { error } }) => (
+            <Input name="name" label="Name" value={value} onChange={onChange} errorMessage={error?.message} />
+          )}
+        />
+        <Controller
+          control={control}
+          name="surname"
+          rules={{ required: false, minLength: { value: 3, message: 'Surname should have at least 3 characters' }, maxLength: { value: 50, message: 'Surname should have less than 50 characters' } }}
+          render={({ field: { onChange, value }, fieldState: { error } }) => (
+            <Input name="surname" label="Surname" value={value} onChange={onChange} errorMessage={error?.message} />
+          )}
+        />
+        <Controller
+          control={control}
+          name="address"
+          rules={{ required: false, minLength: { value: 3, message: 'Address should have at least 3 characters' }, maxLength: { value: 50, message: 'Address should have less than 50 characters' } }}
+          render={({ field: { onChange, value }, fieldState: { error } }) => (
+            <Input name="address" label="Address" value={value} onChange={onChange} errorMessage={error?.message} />
+          )}
+        />
+        <Controller
+          control={control}
+          name="postcode"
+          rules={{ required: false, minLength: { value: 3, message: 'Postcode should have at least 3 characters' }, maxLength: { value: 50, message: 'Postcode should have less than 10 characters' } }}
+          render={({ field: { onChange, value }, fieldState: { error } }) => (
+            <Input name="postcode" type="number" label="Postcode" value={value} onChange={onChange} errorMessage={error?.message} />
           )}
         />
         <Controller
           control={control}
           name="password"
-          rules={{ validate: strongPasswordValidation }}
+          rules={{ required: false, validate: strongPasswordValidation }}
           render={({ field: { onChange, value }, fieldState: { error } }) => (
             <Input name="password" withIcon inputType="password" label="New password" value={value} onChange={onChange} errorMessage={error?.message} />
           )}
@@ -79,7 +116,7 @@ function Profile() {
         <Controller
           control={control}
           name="passwordConfirmation"
-          rules={{ validate: value => value === currentPassword || 'Password and Password Confirmation don\'t match' }}
+          rules={{ required: false, validate: value => value === currentPassword || 'Password and Password Confirmation don\'t match' }}
           render={({ field: { onChange, value }, fieldState: { error } }) => (
             <Input name="password-confirmation" withIcon inputType="password" label="Password Confirmation" value={value} onChange={onChange} errorMessage={error?.message} />
           )}
