@@ -31,3 +31,11 @@
 .trigger {
     cursor: pointer;
 }
+
+.avatar {
+    height: 35px;
+    width: 35px;
+    overflow: hidden;
+    border-radius: 100%;
+    border: 1px solid var(--color-gray);
+}

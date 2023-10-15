@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { usePathname } from "next/navigation";
 import useClickOutside from '@/hooks/use-click-outside';
 import { useCloseMenuByEscape } from '@/hooks/use-close-menu-by-escape';
+import clsx from 'clsx';
 
 type Option = {
   label: ReactNode;
@@ -12,7 +13,7 @@ type Option = {
   onClick?: () => void;
 }
 
-export function Dropdown({ options, trigger }: { options: Option[], trigger: ReactNode }) {
+export function Dropdown({ options, trigger, withAvatar = false }: { options: Option[], trigger: ReactNode, withAvatar: boolean }) {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
   const dropdownRef = useRef<HTMLDivElement>(null)
@@ -31,7 +32,7 @@ export function Dropdown({ options, trigger }: { options: Option[], trigger: Rea
 
   return (
     <div className={styles.dropdown} ref={dropdownRef} >
-      <button className={styles.trigger} onClick={handleOpen}>{trigger}</button>
+      <button className={clsx(styles.trigger, withAvatar && styles.avatar)} onClick={handleOpen}>{trigger}</button>
       {open ? (
         <ul className={styles.menu}>
           {options.map(({ href, label, onClick }) => (

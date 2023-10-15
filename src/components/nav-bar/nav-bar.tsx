@@ -31,7 +31,8 @@ export function NavBar() {
     if (openMenu === true) {
       window.document.body.style.overflow = 'hidden'
     } else {
-    window.document.body.style.overflow = 'visible' }
+      window.document.body.style.overflow = 'visible'
+    }
   }, [openMenu])
 
   useEffect(() => {
@@ -100,11 +101,12 @@ export function NavBar() {
             </Link>
           </li>
           <li className={styles.cartLink}>
-            <Dropdown options={[{ label: 'SIGN UP', href: "/signup" }, { label: currentUser ? 'LOGOUT' : "LOGIN", href: currentUser ? undefined : "/login", onClick: currentUser ? onLogOut : undefined }, { label: 'PROFILE', href:  currentUser ? '/profile' :'/login' }]} trigger={<Image
+            <Dropdown withAvatar={!!currentUser?.photoURL} options={[{ label: 'SIGN UP', href: "/signup" }, { label: currentUser ? 'LOGOUT' : "LOGIN", href: currentUser ? undefined : "/login", onClick: currentUser ? onLogOut : undefined }, { label: 'PROFILE', href: currentUser ? '/profile' : '/login' }]} trigger={<Image
               className={styles.user}
-              src={User}
+              src={currentUser?.photoURL || User }
               alt="profile"
               height={35}
+              width={35}
             />} /></li>
         </ul>
 

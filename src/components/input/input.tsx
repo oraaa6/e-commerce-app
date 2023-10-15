@@ -21,6 +21,8 @@ const [buttonType, setButtonType] = useState<"password" | "text">(inputType)
         <>
             <div className={styles.inputContainer}>
                 <label className={clsx(styles.label, errorMessage && styles.labelError)} htmlFor={name}>{label}</label>
+
+                <div className={clsx(styles.inputWrapper, errorMessage && styles.inputWrapperError, focus && styles.inputWrapperFocused, props?.disabled && styles.inputWrapperDisabled)}>
                 {withIcon && (buttonType === 'password' ?
                     <Image
                         className={styles.eye}
@@ -35,7 +37,6 @@ const [buttonType, setButtonType] = useState<"password" | "text">(inputType)
                         height={30}
                         onClick={() => setButtonType('password')} />
                 )}
-                <div className={clsx(styles.inputWrapper, errorMessage && styles.inputWrapperError, focus && styles.inputWrapperFocused, props?.disabled && styles.inputWrapperDisabled)}>
                     <input onFocus={() => setFocus(true)} onBlur={() => setFocus(false)} className={styles.input} name={name} id={name} type={buttonType || props.type}  {...props} />
                 </div>
                 {errorMessage ? <p className={styles.errorMessage}>{errorMessage}</p> : null}

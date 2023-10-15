@@ -13,30 +13,27 @@ import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 import Check from 'assets/svg/check.svg'
 import Image from "next/image";
+import { Avatar } from "@/components/avatar/avatar";
 
 
 type FormValues = {
   login: string;
-  name?: string;
-  surname?: string;
-  address?: string;
-  postcode?: string;
+  nickName?: string;
+  telephoneNumber?: string;
   password?: string;
   passwordConfirmation?: string;
 }
 
 function Profile() {
 
-  const { currentUser, changePassword } = useAuth()
+  const { currentUser, changePassword, updateNickName } = useAuth()
   const router = useRouter()
   const { handleSubmit, reset, setValue, control, watch, formState: { isDirty, isValid, errors, isSubmitting }, setError } = useForm<FormValues>({
     mode: 'all',
     defaultValues: {
       login: currentUser?.email!,
-      name: '',
-      surname: '',
-      address: '',
-      postcode: '',
+      nickName: '',
+      telephoneNumber: '',
       password: '',
       passwordConfirmation: ''
     }
@@ -46,24 +43,31 @@ function Profile() {
 
   const onSubmit = async (data: FormValues, event?: BaseSyntheticEvent) => {
     event?.preventDefault()
+    if (!currentUser) {
+      return null
+    }
 
     try {
       if (data.password) {
-        await changePassword(currentUser!, data.password)
-        router.push('/')
-        toast.success('Password successfuly changed', {
-          icon: () =>
-          (<Image
-            src={Check}
-            alt="check"
-            height={50} />)
-        })
+        await changePassword(currentUser, data.password)
+
       }
 
+      if (data.nickName) {
+        await updateNickName(currentUser, data.nickName)
+      }
+
+      router.push('/')
+      toast.success('Profile updated!', {
+        icon: () =>
+        (<Image
+          src={Check}
+          alt="check"
+          height={50} />)
+      })
     } catch (error) {
-      // console.log(error)
-      //   (['password', 'passwordConfirmation'] as const).forEach((field) => setValue(field, ''))
-      setError('root', { message: 'Failed to change password. Try later' })
+
+      setError('root', { message: 'Failed to update profile. Try later' })
     }
 
   }
@@ -72,39 +76,26 @@ function Profile() {
     <PageContainer>
       <h1 className={styles.header}>Update your profile!</h1>
       <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
+        <div className={styles.nicknameContainer}>
+          <Avatar />
+          <Controller
+            control={control}
+            name="nickName"
+            rules={{ required: false, minLength: { value: 3, message: 'Nick name should have at least 3 characters' }, maxLength: { value: 50, message: 'Nick name should have less than 50 characters' } }}
+            render={({ field: { onChange, value }, fieldState: { error } }) => (
+              <Input name="nickName" label="Nick name" value={value} onChange={onChange} errorMessage={error?.message} />
+            )}
+          />
+        </div>
+        <Controller
+          control={control}
+          name="telephoneNumber"
+          rules={{ required: false, minLength: { value: 5, message: 'Telephone number should have at least 5 characters' }, maxLength: { value: 14, message: 'Telephone number should have less than 14 characters' } }}
+          render={({ field: { onChange, value }, fieldState: { error } }) => (
+            <Input name="telephoneNumber" type="number" label="Telephone number" value={value} onChange={onChange} errorMessage={error?.message} />
+          )}
+        />
         <Input name="login" label="Login" value={currentUser?.email!} disabled />
-        <Controller
-          control={control}
-          name="name"
-          rules={{ required: false, minLength: { value: 3, message: 'Name should have at least 3 characters' }, maxLength: { value: 50, message: 'Name should have less than 50 characters' } }}
-          render={({ field: { onChange, value }, fieldState: { error } }) => (
-            <Input name="name" label="Name" value={value} onChange={onChange} errorMessage={error?.message} />
-          )}
-        />
-        <Controller
-          control={control}
-          name="surname"
-          rules={{ required: false, minLength: { value: 3, message: 'Surname should have at least 3 characters' }, maxLength: { value: 50, message: 'Surname should have less than 50 characters' } }}
-          render={({ field: { onChange, value }, fieldState: { error } }) => (
-            <Input name="surname" label="Surname" value={value} onChange={onChange} errorMessage={error?.message} />
-          )}
-        />
-        <Controller
-          control={control}
-          name="address"
-          rules={{ required: false, minLength: { value: 3, message: 'Address should have at least 3 characters' }, maxLength: { value: 50, message: 'Address should have less than 50 characters' } }}
-          render={({ field: { onChange, value }, fieldState: { error } }) => (
-            <Input name="address" label="Address" value={value} onChange={onChange} errorMessage={error?.message} />
-          )}
-        />
-        <Controller
-          control={control}
-          name="postcode"
-          rules={{ required: false, minLength: { value: 3, message: 'Postcode should have at least 3 characters' }, maxLength: { value: 50, message: 'Postcode should have less than 10 characters' } }}
-          render={({ field: { onChange, value }, fieldState: { error } }) => (
-            <Input name="postcode" type="number" label="Postcode" value={value} onChange={onChange} errorMessage={error?.message} />
-          )}
-        />
         <Controller
           control={control}
           name="password"

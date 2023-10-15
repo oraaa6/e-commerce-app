@@ -1,7 +1,7 @@
 .inputContainer {
     display: flex;
     flex-direction: column;
-    position: relative;
+
     width: 100%;
     margin: 0 auto;
     min-height: 75px;
@@ -17,6 +17,7 @@
 
 
 .input {
+   
     border: transparent;
     background-color: transparent;
     width: 85%;
@@ -31,6 +32,7 @@
 
 .inputWrapper {
     width: 100%;
+    position: relative;
     border: 1px solid var(--color-gray);
     padding: 2px 6px;
     border-radius: 20px;
@@ -60,8 +62,8 @@
 
 .eye {
  position: absolute; 
- top: 23px;
- right: 15px;
+ z-index: 101;
+right: 10px;
 }
 
 .errorMessage {
@@ -71,3 +73,15 @@
 .input:autofill {
     box-shadow: 0 0 0px 1000px var(--color-white) inset;
  }
+
+ /* Chrome, Safari, Edge, Opera */
+.input::-webkit-outer-spin-button,
+.input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+.input[type=number] {
+  -moz-appearance: textfield;
+}

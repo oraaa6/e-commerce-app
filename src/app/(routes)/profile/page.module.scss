@@ -14,10 +14,13 @@ background-color: var(--color-background-card);
 border: 1px solid var(--color-gray);
 max-width: 500px;
 border-radius: 20px;
-padding: 40px;
+padding: 20px;
 margin: 0 auto;
 box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
 margin-bottom: 20px;
+@include sm {
+    padding: 40px;
+}
 }
 
 .linkParagraph {
@@ -37,6 +40,14 @@ margin-bottom: 20px;
 
 .buttonsContainer {
     display: flex;
+    justify-content: center;
+    align-items: center;
     gap: 30px;
     padding-top: 20px;
+    flex-direction: column;
+    
+    @include sm {
+        flex-direction: row;
+    }
 }
+
