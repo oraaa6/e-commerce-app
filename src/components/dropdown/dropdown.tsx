@@ -32,6 +32,7 @@ export function Dropdown({ options, trigger, withAvatar = false }: { options: Op
 
   return (
     <div className={styles.dropdown} ref={dropdownRef} >
+      
       <button className={clsx(styles.trigger, withAvatar && styles.avatar)} onClick={handleOpen}>{trigger}</button>
       {open ? (
         <ul className={styles.menu}>

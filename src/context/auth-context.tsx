@@ -3,7 +3,7 @@
 import { ReactNode, createContext, useContext, useState, useEffect } from 'react';
 import { auth, storage } from '@/firebase';
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
-import { User, UserCredential, createUserWithEmailAndPassword, sendPasswordResetEmail, signInWithEmailAndPassword, updateCurrentUser, updatePassword, updatePhoneNumber, updateProfile } from "firebase/auth";
+import { User, UserCredential, createUserWithEmailAndPassword, sendPasswordResetEmail, signInWithEmailAndPassword, updateCurrentUser, updatePassword, updatePhoneNumber, updateProfile, validatePassword } from "firebase/auth";
 
 
 type AuthContextType = {
@@ -63,6 +63,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         return updateProfile(currentUser, {displayName})
     }
 
+ 
 
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged(user => {

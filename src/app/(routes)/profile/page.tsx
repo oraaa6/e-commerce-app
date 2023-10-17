@@ -19,7 +19,6 @@ import { Avatar } from "@/components/avatar/avatar";
 type FormValues = {
   login: string;
   nickName?: string;
-  telephoneNumber?: string;
   password?: string;
   passwordConfirmation?: string;
 }
@@ -32,8 +31,7 @@ function Profile() {
     mode: 'all',
     defaultValues: {
       login: currentUser?.email!,
-      nickName: '',
-      telephoneNumber: '',
+      nickName: currentUser?.displayName!,
       password: '',
       passwordConfirmation: ''
     }
@@ -87,14 +85,7 @@ function Profile() {
             )}
           />
         </div>
-        <Controller
-          control={control}
-          name="telephoneNumber"
-          rules={{ required: false, minLength: { value: 5, message: 'Telephone number should have at least 5 characters' }, maxLength: { value: 14, message: 'Telephone number should have less than 14 characters' } }}
-          render={({ field: { onChange, value }, fieldState: { error } }) => (
-            <Input name="telephoneNumber" type="number" label="Telephone number" value={value} onChange={onChange} errorMessage={error?.message} />
-          )}
-        />
+
         <Input name="login" label="Login" value={currentUser?.email!} disabled />
         <Controller
           control={control}
