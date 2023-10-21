@@ -7,9 +7,8 @@ import { Button } from "components/button/button";
 import Link from "next/link";
 import { createSearchParam } from "@/utils/get-search-params";
 import { useDispatch } from "react-redux";
-import { updateProducts } from "@/slices/product.slice";
-import { useSelector } from "react-redux";
-import { products } from "@/slices/product.slice";
+import { addProductToCart } from "@/slices/product.slice";
+
 type ProductCardProps = {
   image: string;
   title: string;
@@ -18,17 +17,17 @@ type ProductCardProps = {
 };
 export function ProductCard({ image, title, price, id }: ProductCardProps) {
   const dispatch = useDispatch();
-  const product = useSelector(products);
+
   const handleClick = () => {
     dispatch(
-      updateProducts({ productId: id, productName: title, price, amount: 1 })
+      addProductToCart({ productId: id, productName: title, price, amount: 1 })
     );
   };
 
   const param = createSearchParam(title);
   return (
-    <Link href={`/product-${id}`}>
-      <div className={styles.cartContainer}>
+    <div className={styles.cartContainer}>
+      <Link href={`/product-${id}`}>
         <div className={styles.cartImageBgc}>
           <div className={styles.cartImageContainer}>
             <Image
@@ -59,10 +58,10 @@ export function ProductCard({ image, title, price, id }: ProductCardProps) {
           ))}
           <sup className={styles.numberOfStars}>(2137)</sup>
         </div>
-        <Button onClick={handleClick} white slim>
-          Add to card
-        </Button>
-      </div>
-    </Link>
+      </Link>
+      <Button onClick={handleClick} white slim>
+        Add to card
+      </Button>
+    </div>
   );
 }

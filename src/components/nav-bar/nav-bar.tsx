@@ -11,71 +11,74 @@ import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { SearchInput } from "components/search-input/search-input";
 import { useAuth } from "@/context/auth-context";
-import { toast } from 'react-toastify';
+import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
-import Check from 'assets/svg/check.svg'
-import Cross from 'assets/svg/cross.svg'
-import User from 'assets/svg/user.svg'
+import Check from "assets/svg/check.svg";
+import Cross from "assets/svg/cross.svg";
+import User from "assets/svg/user.svg";
 import { Dropdown } from "@/components/dropdown/dropdown";
 import clsx from "clsx";
 import { useCloseMenuByEscape } from "@/hooks/use-close-menu-by-escape";
+import { useSelector } from "react-redux";
+import { products } from "@/slices/product.slice";
 
 export function NavBar() {
   const [openMenu, setOpenMenu] = useState(false);
   const pathname = usePathname();
-  const router = useRouter()
+  const router = useRouter();
+  const product = useSelector(products);
+  useCloseMenuByEscape({ setOpen: setOpenMenu });
 
-  useCloseMenuByEscape({ setOpen: setOpenMenu })
+  const getAmount = product.reduce((accumulator, currentValue) => {
+    let currentAmount = 0;
+    Object.entries(currentValue).forEach(([_, value]) => {
+      currentAmount = value.amount;
+    });
+    return accumulator + currentAmount;
+  }, 0);
 
   useEffect(() => {
     if (openMenu === true) {
-      window.document.body.style.overflow = 'hidden'
+      window.document.body.style.overflow = "hidden";
     } else {
-      window.document.body.style.overflow = 'visible'
+      window.document.body.style.overflow = "visible";
     }
-  }, [openMenu])
+  }, [openMenu]);
 
   useEffect(() => {
-    setOpenMenu(false)
-  }, [])
+    setOpenMenu(false);
+  }, []);
 
-  const { currentUser, logout } = useAuth()
+  const { currentUser, logout } = useAuth();
 
   const onLogOut = async () => {
     try {
-      await logout()
-      if (pathname !== '/') {
-        router.push("/")
+      await logout();
+      if (pathname !== "/") {
+        router.push("/");
       }
-      toast.success('Logout successful', {
-        icon: () =>
-        (<Image
-          src={Check}
-          alt="check"
-          height={50} />)
-      })
+      toast.success("Logout successful", {
+        icon: () => <Image src={Check} alt="check" height={50} />,
+      });
+    } catch {
+      toast.error("Logout failed", {
+        icon: () => <Image src={Cross} alt="check" height={50} />,
+      });
     }
-    catch {
-      toast.error('Logout failed', {
-        icon: () =>
-        (<Image
-          src={Cross}
-          alt="check"
-          height={50} />)
-      })
-    }
-  }
+  };
 
   useEffect(() => {
     setOpenMenu(false);
   }, [pathname]);
 
-
-
   return (
     <nav className={styles.navigation}>
       <div className={styles.contentContainer}>
-        <Link href="/" className={styles.foxLink} onClick={() => setOpenMenu(false)}>
+        <Link
+          href="/"
+          className={styles.foxLink}
+          onClick={() => setOpenMenu(false)}
+        >
           <Image
             className={styles.fox}
             src={Logo}
@@ -90,7 +93,11 @@ export function NavBar() {
         <ul className={styles.profileContainer}>
           <li className={styles.cartLink}>
             <Link href="/cart">
-              <div className={styles.amountCart}>5</div>
+              {getAmount ? (
+                <div className={styles.amountCart}>{getAmount}</div>
+              ) : (
+                ""
+              )}
               <Image
                 className={styles.bag}
                 src={Bag}
@@ -101,13 +108,28 @@ export function NavBar() {
             </Link>
           </li>
           <li className={styles.cartLink}>
-            <Dropdown withAvatar={!!currentUser?.photoURL} options={[{ label: 'SIGN UP', href: "/signup" }, { label: currentUser ? 'LOGOUT' : "LOGIN", href: currentUser ? undefined : "/login", onClick: currentUser ? onLogOut : undefined }, { label: 'PROFILE', href: currentUser ? '/profile' : '/login' }]} trigger={<Image
-              className={styles.user}
-              src={currentUser?.photoURL || User }
-              alt="profile"
-              height={35}
-              width={35}
-            />} /></li>
+            <Dropdown
+              withAvatar={!!currentUser?.photoURL}
+              options={[
+                { label: "SIGN UP", href: "/signup" },
+                {
+                  label: currentUser ? "LOGOUT" : "LOGIN",
+                  href: currentUser ? undefined : "/login",
+                  onClick: currentUser ? onLogOut : undefined,
+                },
+                { label: "PROFILE", href: currentUser ? "/profile" : "/login" },
+              ]}
+              trigger={
+                <Image
+                  className={styles.user}
+                  src={currentUser?.photoURL || User}
+                  alt="profile"
+                  height={35}
+                  width={35}
+                />
+              }
+            />
+          </li>
         </ul>
 
         <button
@@ -120,21 +142,17 @@ export function NavBar() {
             <Image src={Hambrger} width={30} alt="Open menu" />
           )}
         </button>
-        <ul className={clsx(styles.categoriesContainer, openMenu && styles.open)}>
+        <ul
+          className={clsx(styles.categoriesContainer, openMenu && styles.open)}
+        >
           <li className={styles.categoryLink}>
-            <Link href="/men">
-              Men's
-            </Link>
+            <Link href="/men">Men's</Link>
           </li>
           <li className={styles.categoryLink}>
-            <Link href="/women">
-              Women's
-            </Link>
+            <Link href="/women">Women's</Link>
           </li>
           <li className={styles.categoryLink}>
-            <Link href="/jewelery">
-              Jewelery
-            </Link>
+            <Link href="/jewelery">Jewelery</Link>
           </li>
           <li className={styles.categoryLink}>
             <Link className={styles.categoryLink} href="/tech">
@@ -142,9 +160,7 @@ export function NavBar() {
             </Link>
           </li>
           <li className={styles.categoryLink}>
-            <Link href="/sale">
-              Sale
-            </Link>
+            <Link href="/sale">Sale</Link>
           </li>
         </ul>
       </div>

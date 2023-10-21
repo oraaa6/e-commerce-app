@@ -6,8 +6,7 @@ import { NavBar } from "@/components/nav-bar/nav-bar";
 import { AuthProvider } from "@/context/auth-context";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { store } from "@/store/store";
-import { Provider } from "react-redux";
+import { ReduxProvider } from "@/providers/providers";
 
 const quicksand = Quicksand({
   subsets: ["latin"],
@@ -22,7 +21,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={quicksand.className}>
-        <Provider store={store}>
+        <ReduxProvider>
           <AuthProvider>
             <ToastContainer
               className={styles.toast}
@@ -33,7 +32,7 @@ export default function RootLayout({
             <NavBar />
             {children}
           </AuthProvider>
-        </Provider>
+        </ReduxProvider>
       </body>
     </html>
   );
