@@ -1,80 +1,73 @@
 .inputContainer {
-    display: flex;
-    flex-direction: column;
-
-    width: 100%;
-    margin: 0 auto;
-    min-height: 75px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin: 0 auto;
+  min-height: 75px;
 }
 
 .label {
-    font-size: 14px;
+  font-size: 14px;
 }
 
 .labelError {
-    color: var(--color-error)
+  color: var(--color-error);
 }
-
 
 .input {
-   
-    border: transparent;
-    background-color: transparent;
-    width: 85%;
-     &:focus {
-         outline: none;
-     }
-     &:disabled {
-        color: var(--color-white)
-     }
+  border: transparent;
+  background-color: transparent;
+  width: 85%;
+  &:focus {
+    outline: none;
+  }
+  &:disabled {
+    color: var(--color-white);
+  }
 }
 
-
 .inputWrapper {
-    width: 100%;
-    position: relative;
-    border: 1px solid var(--color-gray);
-    padding: 2px 6px;
-    border-radius: 20px;
-    background-color: var(--color-white);
+  width: 100%;
+  position: relative;
+  border: 1px solid var(--color-gray);
+  padding: 2px 6px;
+  border-radius: 20px;
+  background-color: var(--color-white);
 }
 
 .inputWrapperError {
-    border-color: var(--color-error);
-
+  border-color: var(--color-error);
 }
 
 .inputWrapperError.inputWrapperFocused {
-        outline-offset: 1px;
-        outline: 1px solid var(--color-error);
+  outline-offset: 1px;
+  outline: 1px solid var(--color-error);
 }
 
-
 .inputWrapperFocused {
-    outline-offset: 1px;
-    outline: 1px solid var(--color-gray);
+  outline-offset: 1px;
+  outline: 1px solid var(--color-gray);
 }
 
 .inputWrapperDisabled {
- background-color: var(--color-gray);
-
+  background-color: var(--color-gray);
 }
 
 .eye {
- position: absolute; 
- z-index: 101;
-right: 10px;
+  position: absolute;
+  z-index: 101;
+  right: 10px;
 }
 
 .errorMessage {
-    font-size: 12px;
+  font-size: 12px;
 }
 
 .input:autofill {
-    box-shadow: 0 0 0px 1000px var(--color-white) inset;
- }
+  box-shadow: 0 0 0px 1000px var(--color-white) inset;
+}
 
- /* Chrome, Safari, Edge, Opera */
+/* Chrome, Safari, Edge, Opera */
 .input::-webkit-outer-spin-button,
 .input::-webkit-inner-spin-button {
   -webkit-appearance: none;
@@ -82,6 +75,6 @@ right: 10px;
 }
 
 /* Firefox */
-.input[type=number] {
+.input[type="number"] {
   -moz-appearance: textfield;
 }
