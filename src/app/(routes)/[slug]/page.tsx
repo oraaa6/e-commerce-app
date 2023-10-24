@@ -42,6 +42,7 @@ export default async function ProductPage({
         </div>
         <div className={styles.rightSectionContiner}>
           <ProductDescription
+            category={product.category}
             description={product.description}
             price={product.price}
           />

@@ -25,6 +25,7 @@ export function ProductCard({ image, title, price, id }: ProductCardProps) {
   };
 
   const param = createSearchParam(title);
+
   return (
     <div className={styles.cartContainer}>
       <Link href={`/product-${id}`}>

@@ -11,6 +11,7 @@ import { Button } from "../button/button";
 type ProductDescriptionProps = {
   description: string;
   price: string;
+  category?: "electronics" | "men's clothing" | "jewelery" | "women's clothing";
 };
 type FormValues = {
   size: string;
@@ -20,6 +21,7 @@ type FormValues = {
 export function ProductDescription({
   description,
   price,
+  category,
 }: ProductDescriptionProps) {
   const {
     handleSubmit,
@@ -29,36 +31,43 @@ export function ProductDescription({
     mode: "all",
 
     defaultValues: {
-      size: "",
-      amount: 0,
+      size: "xxs",
+      amount: 1,
     },
   });
 
   const onSubmit = ({ size, amount }: FormValues) => {
     console.log(size);
   };
+
+  const isClothing =
+    category === "men's clothing" || category === "women's clothing";
+
   return (
     <>
       <p className={"styles.description"}>{description}</p>
-      <h3>price: {price} $</h3>
+      <h2> {price} $</h2>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <Controller
-          control={control}
-          name="size"
-          rules={{ required: true }}
-          render={({ field: { onChange, value } }) => (
-            <Select
-              options={sizeOptions}
-              selectLabel="Size"
-              value={value}
-              onChange={onChange}
-            />
-          )}
-        />
+        {isClothing && (
+          <Controller
+            control={control}
+            name="size"
+            rules={{ required: true }}
+            render={({ field: { onChange, value } }) => (
+              <Select
+                options={sizeOptions}
+                selectLabel="Size"
+                value={value}
+                onChange={onChange}
+              />
+            )}
+          />
+        )}
+
         <Controller
           control={control}
           name="amount"
-          rules={{ required: true }}
+          rules={{ required: true, min: 1, max: 50 }}
           render={({ field: { onChange, value } }) => (
             <Input
               value={value}
@@ -69,7 +78,7 @@ export function ProductDescription({
             />
           )}
         />
-        <Button type="submit" disabled={!isDirty || !isValid}>
+        <Button type="submit" disabled={!isValid}>
           Add to cart
         </Button>
       </form>

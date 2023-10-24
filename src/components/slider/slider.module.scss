@@ -1,56 +1,53 @@
-
-
 .dot {
-    width: 16px;
-    height: 16px;
+  width: 16px;
+  height: 16px;
+}
+
+.container {
+  display: block;
+  padding: 20px;
+  @include md {
+    padding: 50px 20px;
   }
 
-  .container {
-    display: block;
-    padding: 20px;
-    @include md {
-        padding: 50px 20px; 
-    }
-    
-    & :global(.slick-arrow::before)
-     {
-     display: none;
-     }
-
-    & :global(.slick-dots) {
-      position: relative;
-      
-        & :global(.slick-active) {
-            background-color: var(--color-dark-green);
-            border: 1px solid var(--color-dark-green);
-            border-radius: 16px;
-        }
-
-        & li {    
-          border-radius: 16px;
-          width: 16px;
-          height: 16px;
-          border: 2px solid var(--color-dark-green);
-          margin: 0 5px;
-         & button::before {
-          font-size: 0; 
-         }
-        }
-    }
+  & :global(.slick-arrow::before) {
+    display: none;
   }
 
-  .arrow {
-    height: 40px;
-    width: 30px;
-    background-color: transparent;
-    margin: 0 20px;
-    z-index: 20;
-  }
+  & :global(.slick-dots) {
+    position: relative;
 
-  .header {
-    padding-bottom: 20px;
-    font-size: 25px;
-    @include md {
-        font-size: 34px;
+    & :global(.slick-active) {
+      background-color: var(--color-dark-yellow);
+      border: 1px solid var(--color-dark-yellow);
+      border-radius: 16px;
     }
+
+    & li {
+      border-radius: 16px;
+      width: 11px;
+      height: 11px;
+      border: 1px solid var(--color-gray);
+      margin: 0 8px;
+      & button::before {
+        font-size: 0;
+      }
+    }
+  }
+}
+
+.arrow {
+  height: 40px;
+  width: 30px;
+  background-color: transparent;
+  margin: 0 20px;
+  z-index: 20;
+}
+
+.header {
+  padding-bottom: 20px;
+  font-size: 25px;
+  @include md {
+    font-size: 34px;
+  }
 }
