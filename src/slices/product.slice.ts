@@ -17,7 +17,7 @@ type Products = {
 }[];
 
 type PayloadProduct = {
-  productId: string;
+  productId: number;
   productName: string;
   price: string;
   amount: number;
@@ -53,6 +53,12 @@ export const productSlice = createSlice({
             },
           },
         ]);
+      } else {
+        state[currentProductIndex][payload.productId] = {
+          ...state[currentProductIndex][payload.productId],
+          amount: payload.amount,
+          size: payload.size,
+        };
       }
     },
   },

@@ -146,10 +146,10 @@ export function NavBar() {
           className={clsx(styles.categoriesContainer, openMenu && styles.open)}
         >
           <li className={styles.categoryLink}>
-            <Link href="/men">Men's</Link>
+            <Link href="/men">Men&apos;s</Link>
           </li>
           <li className={styles.categoryLink}>
-            <Link href="/women">Women's</Link>
+            <Link href="/women">Women&apos;s</Link>
           </li>
           <li className={styles.categoryLink}>
             <Link href="/jewelery">Jewelery</Link>
