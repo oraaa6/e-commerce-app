@@ -80,28 +80,3 @@ productsListenerMiddleware.startListening({
     });
   },
 });
-
-// if (currentProductIndex >= 0) {
-//     return (state = state.map((product) => ({
-//       ...product,
-//       [payload.productId]: {
-//         ...state[currentProductIndex],
-//         productName: payload.productName,
-//         price: payload.price,
-//         amount: payload.amount,
-//         size: payload.size,
-//       },
-//     })));
-//   } else {
-//     return (state = [
-//       ...state,
-//       {
-//         [payload.productId]: {
-//           productName: payload.productName,
-//           price: payload.price,
-//           amount: payload.amount,
-//           size: payload.size,
-//         },
-//       },
-//     ]);
-//   }

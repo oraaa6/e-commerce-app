@@ -32,7 +32,7 @@ export function NavBar() {
   const getAmount = product.reduce((accumulator, currentValue) => {
     let currentAmount = 0;
     Object.entries(currentValue).forEach(([_, value]) => {
-      currentAmount = value.amount;
+      currentAmount = Number(value.amount);
     });
     return accumulator + currentAmount;
   }, 0);
@@ -94,7 +94,9 @@ export function NavBar() {
           <li className={styles.cartLink}>
             <Link href="/cart">
               {getAmount ? (
-                <div className={styles.amountCart}>{getAmount}</div>
+                <div className={styles.amountCart}>
+                  {getAmount > 100 ? "+99" : getAmount}
+                </div>
               ) : (
                 ""
               )}
@@ -102,8 +104,8 @@ export function NavBar() {
                 className={styles.bag}
                 src={Bag}
                 alt="Your shopping bag"
-                width={25}
-                height={20}
+                width={30}
+                height={30}
               />
             </Link>
           </li>
@@ -111,21 +113,22 @@ export function NavBar() {
             <Dropdown
               withAvatar={!!currentUser?.photoURL}
               options={[
-                { label: "SIGN UP", href: "/signup" },
+                ...(currentUser
+                  ? [{ label: "PROFILE", href: "/profile" }]
+                  : [{ label: "SIGN UP", href: "/signup" }]),
                 {
                   label: currentUser ? "LOGOUT" : "LOGIN",
                   href: currentUser ? undefined : "/login",
                   onClick: currentUser ? onLogOut : undefined,
                 },
-                { label: "PROFILE", href: currentUser ? "/profile" : "/login" },
               ]}
               trigger={
                 <Image
                   className={styles.user}
                   src={currentUser?.photoURL || User}
-                  alt="profile"
-                  height={35}
                   width={35}
+                  height={35}
+                  alt="profile"
                 />
               }
             />
