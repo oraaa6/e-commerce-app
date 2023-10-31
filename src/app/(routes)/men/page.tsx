@@ -4,9 +4,7 @@ import styles from "./men.module.scss";
 import { PageContainer } from "@/components/page-container/page-container";
 
 async function getMensProducts() {
-  const response = await fetch(
-    "https://fakestoreapi.com/products/category/jewelery"
-  );
+  const response = await fetch("https://api.escuelajs.co/api/v1/products");
 
   if (!response.ok) {
     throw new Error("Failed to fetch data");
@@ -20,9 +18,9 @@ export default async function Man() {
   return (
     <PageContainer>
       <div className={styles.productsContainer}>
-        {products.map(({ title, id, image, price }) => (
+        {products.map(({ title, id, images, price }) => (
           <ProductCell
-            image={image}
+            image={images[0]}
             key={id}
             title={title}
             price={price}

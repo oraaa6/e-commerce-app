@@ -6,7 +6,7 @@ import { ProductDescription } from "@/components/product-description/prooduct-de
 
 async function getProduct(productId: string) {
   const response = await fetch(
-    `https://fakestoreapi.com/products/${productId}`
+    `https://api.escuelajs.co/api/v1/products/${productId}`
   );
 
   if (!response.ok) {
@@ -29,7 +29,7 @@ export default async function ProductPage({
         <div className={styles.leftSectionContiner}>
           <div className={styles.imageContainer}>
             <Image
-              src={product.image}
+              src={product.images[0]}
               alt={product.title}
               className={styles.image}
               fill

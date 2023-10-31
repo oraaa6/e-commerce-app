@@ -79,13 +79,13 @@ export function SliderProduct({ products }: { products: Products }) {
     <div className={styles.container}>
       <h1 className={styles.header}>Weekly Popular Products</h1>
       <Slider {...settings}>
-        {products.map(({ id, title, price, image, category }) => (
+        {products.map(({ id, title, price, images, category }) => (
           <ProductCard
             category={category}
             key={id}
             title={title}
             price={price}
-            image={image}
+            image={images[0]}
             id={id}
           />
         ))}

@@ -7,7 +7,7 @@ import { CashBack } from "@/components/cash-back/cash-back";
 
 async function getProducts() {
   const response = await fetch(
-    "https://api.escuelajs.co/api/v1/products?limit=18"
+    "https://api.escuelajs.co/api/v1/products?offset=10&limit=10"
   );
 
   if (!response.ok) {

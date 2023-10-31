@@ -2,23 +2,13 @@
   display: flex;
   justify-content: space-between;
   flex-direction: column;
-
-  //   @include md {
-  //     max-width: initial;
-  //     width: 270px;
-  //   }
-  //   @include lg {
-  //     width: 290px;
-  //   }
-  //   @include xl {
-  //     width: 330px;
-  //   }
 }
 
 .cellImageContainer {
   width: 300px;
   height: 300px;
   position: relative;
+  margin-top: 30px;
 }
 
 .cellImage {
@@ -30,6 +20,7 @@
   font-size: 12px;
   width: 70%;
   margin-top: 20px;
+  margin-bottom: 10px;
 
   @include lg {
     font-size: 14px;
@@ -38,6 +29,7 @@
 
 .price {
   font-size: 12px;
+  margin-bottom: 20px;
 
   @include lg {
     font-size: 14px;

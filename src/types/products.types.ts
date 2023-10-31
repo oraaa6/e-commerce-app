@@ -4,7 +4,7 @@ export type Product = {
   price: string;
   category: "electronics" | "men's clothing" | "jewelery" | "women's clothing";
   description: string;
-  image: string;
+  images: string[];
 };
 
 export type Products = Product[];

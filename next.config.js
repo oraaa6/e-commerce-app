@@ -16,27 +16,8 @@ const nextConfig = {
     prependData: "@import '~/src/styles/_mixins';",
   },
   images: {
+    unoptimized: true,
     deviceSizes: [600, 768, 1024, 1280, 1536],
-    remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "fakestoreapi.com",
-        port: "",
-        pathname: "/img/**",
-      },
-      {
-        protocol: "https",
-        hostname: "api.escuelajs.co",
-        port: "",
-        pathname: "/api/v1/**",
-      },
-      {
-        protocol: "https",
-        hostname: "firebasestorage.googleapis.com",
-        port: "",
-        pathname: "/**",
-      },
-    ],
   },
 };
 
