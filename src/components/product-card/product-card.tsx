@@ -19,20 +19,12 @@ type ProductCardProps = {
   title: string;
   price: string;
   id: number;
-  category: "electronics" | "men's clothing" | "jewelery" | "women's clothing";
 };
-export function ProductCard({
-  image,
-  title,
-  price,
-  id,
-  category,
-}: ProductCardProps) {
+export function ProductCard({ image, title, price, id }: ProductCardProps) {
   const dispatch = useDispatch();
   const product = useSelector(products);
-  const isClothing =
-    category === "men's clothing" || category === "women's clothing";
-  const handleClick = () => {
+
+  const addProduct = () => {
     const currentProductIndex = product.findIndex((item) => {
       return item[id];
     });
@@ -46,7 +38,7 @@ export function ProductCard({
           productName: title,
           price,
           amount: 1,
-          ...(isClothing ? { size: ClothingSizes.S } : {}),
+          size: ClothingSizes.S,
         })
       );
       toast.success("Product added", {
@@ -91,7 +83,7 @@ export function ProductCard({
           <sup className={styles.numberOfStars}>(2137)</sup>
         </div>
       </Link>
-      <Button onClick={handleClick} white slim>
+      <Button onClick={addProduct} white slim>
         Add to card
       </Button>
     </div>

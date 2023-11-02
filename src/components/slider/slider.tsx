@@ -81,7 +81,6 @@ export function SliderProduct({ products }: { products: Products }) {
       <Slider {...settings}>
         {products.map(({ id, title, price, images, category }) => (
           <ProductCard
-            category={category}
             key={id}
             title={title}
             price={price}

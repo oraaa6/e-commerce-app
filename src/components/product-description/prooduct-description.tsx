@@ -13,7 +13,6 @@ import { addProductToCart, products } from "@/slices/product.slice";
 type ProductDescriptionProps = {
   description: string;
   price: string;
-  category: "electronics" | "men's clothing" | "jewelery" | "women's clothing";
   id: number;
   name: string;
 };
@@ -25,7 +24,6 @@ type FormValues = {
 export function ProductDescription({
   description,
   price,
-  category,
   id,
   name,
 }: ProductDescriptionProps) {
@@ -69,29 +67,24 @@ export function ProductDescription({
     );
   };
 
-  const isClothing =
-    category === "men's clothing" || category === "women's clothing";
-
   return (
     <>
       <p className={"styles.description"}>{description}</p>
       <h2> {price} $</h2>
       <form onSubmit={handleSubmit(onSubmit)}>
-        {isClothing && (
-          <Controller
-            control={control}
-            name="size"
-            rules={{ required: true }}
-            render={({ field: { onChange, value } }) => (
-              <Select
-                options={sizeOptions}
-                selectLabel="Size"
-                value={value}
-                onChange={onChange}
-              />
-            )}
-          />
-        )}
+        <Controller
+          control={control}
+          name="size"
+          rules={{ required: true }}
+          render={({ field: { onChange, value } }) => (
+            <Select
+              options={sizeOptions}
+              selectLabel="Size"
+              value={value}
+              onChange={onChange}
+            />
+          )}
+        />
 
         <Controller
           control={control}

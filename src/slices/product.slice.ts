@@ -12,7 +12,7 @@ type Products = {
     productName: string;
     price: string;
     amount: number;
-    size?: string;
+    size: string;
   };
 }[];
 
@@ -21,7 +21,7 @@ type PayloadProduct = {
   productName: string;
   price: string;
   amount: number;
-  size?: string;
+  size: string;
 };
 
 export const productsSliceName = "products";

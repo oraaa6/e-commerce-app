@@ -4,6 +4,12 @@ import Image from "next/image";
 import styles from "./product-cell.module.scss";
 import Link from "next/link";
 import { Button } from "@/components/button/button";
+import { useDispatch, useSelector } from "react-redux";
+import { addProductToCart, products } from "@/slices/product.slice";
+import "react-toastify/dist/ReactToastify.css";
+import { ClothingSizes } from "@/types/products.types";
+import { toast } from "react-toastify";
+import Check from "assets/svg/check.svg";
 
 type ProductCellProps = {
   image: string;
@@ -12,21 +18,32 @@ type ProductCellProps = {
   id: number;
 };
 export function ProductCell({ image, title, price, id }: ProductCellProps) {
-  async function addProduct() {
-    fetch("https://fakestoreapi.com/products", {
-      method: "POST",
-      body: JSON.stringify({
-        title: "test product",
-        price: 13.5,
-        description: "lorem ipsum set",
-        image: "https://i.pravatar.cc",
-        category: "jewelery",
-      }),
-    })
-      .then((res) => res.json())
-      .then((json) => console.log(json));
-  }
-  console.log(id);
+  const dispatch = useDispatch();
+  const product = useSelector(products);
+
+  const addProduct = () => {
+    const currentProductIndex = product.findIndex((item) => {
+      return item[id];
+    });
+
+    if (currentProductIndex !== -1) {
+      toast.info("Product is already in shopping bag");
+    } else {
+      dispatch(
+        addProductToCart({
+          productId: id,
+          productName: title,
+          price,
+          amount: 1,
+          size: ClothingSizes.S,
+        })
+      );
+      toast.success("Product added", {
+        icon: () => <Image src={Check} alt="check" height={50} />,
+      });
+    }
+  };
+
   return (
     <div className={styles.cellContainer}>
       <Link href={`/product-${id}`}>
@@ -44,7 +61,9 @@ export function ProductCell({ image, title, price, id }: ProductCellProps) {
         <h3 className={styles.cellTitle}>{title}</h3>
         <p className={styles.price}>{price}$</p>
       </Link>
-      <Button onClick={addProduct}>Add</Button>
+      <Button onClick={addProduct} slim>
+        Add
+      </Button>
     </div>
   );
 }
