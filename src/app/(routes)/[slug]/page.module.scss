@@ -4,7 +4,6 @@
   padding-top: 30px;
   flex-direction: column;
   align-items: center;
-  gap: 30px;
   @include md {
     flex-direction: row;
     max-height: 700px;
@@ -19,9 +18,12 @@
   flex-direction: column;
   @include md {
     justify-content: center;
-    padding-right: 50px;
-    border-right: 0.5px solid var(--color-gray);
   }
+}
+.separator {
+  border-right: 0.5px solid var(--color-gray);
+  margin: 0 50px;
+  min-height: 400px;
 }
 
 .rightSectionContiner {
@@ -32,17 +34,5 @@
   flex-direction: column;
   @include md {
     justify-content: center;
-    padding-left: 50px;
   }
-}
-
-.imageContainer {
-  width: auto;
-  height: 300px;
-  position: relative;
-  margin-bottom: 30px;
-}
-
-.image {
-  object-fit: contain;
 }

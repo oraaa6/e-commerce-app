@@ -17,9 +17,9 @@ type ArrowProps = {
   style?: React.CSSProperties;
 };
 
-function Arrow({ image, alt, onClick, className, style }: ArrowProps) {
+export function Arrow({ image, alt, onClick, className, style }: ArrowProps) {
   return (
-    <div
+    <button
       className={clsx(className, styles.arrow)}
       style={{ ...style, display: "block" }}
       onClick={onClick}
@@ -31,7 +31,7 @@ function Arrow({ image, alt, onClick, className, style }: ArrowProps) {
         alt={alt}
         className={styles.cartImage}
       />
-    </div>
+    </button>
   );
 }
 
