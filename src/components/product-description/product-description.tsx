@@ -9,6 +9,7 @@ import { Input } from "../input/input";
 import { Button } from "../button/button";
 import { useDispatch, useSelector } from "react-redux";
 import { addProductToCart, products } from "@/slices/product.slice";
+import styles from "./product-description.module.scss";
 
 type ProductDescriptionProps = {
   description: string;
@@ -71,7 +72,7 @@ export function ProductDescription({
     <>
       <p className={"styles.description"}>{description}</p>
       <h2> {price} $</h2>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
         <Controller
           control={control}
           name="size"

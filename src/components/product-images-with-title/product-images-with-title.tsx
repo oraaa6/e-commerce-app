@@ -1,12 +1,12 @@
-"use-client";
+"use client";
 
 import ArrowRightIcon from "assets/svg/arrow-right.svg";
 import ArrowLeftIcon from "assets/svg/arrow-left.svg";
 import { Arrow } from "@/components/slider/slider";
 import styles from "./product-images-with-title.module.scss";
 import Image from "next/image";
-import { Product } from "@/types/products.types";
 import { useState } from "react";
+import clsx from "clsx";
 
 type ProductImagesWithTitleProps = {
   productTitle: string;
@@ -20,22 +20,27 @@ export function ProductImagesWithTitle({
   const [imageNumber, setImageNumber] = useState(0);
 
   const nextImage = () => {
-    if (imageNumber === 2) {
-      setImageNumber(0);
-    } else {
-      setImageNumber((prev) => prev + 1);
-    }
+    setTimeout(() => {
+      if (imageNumber === 2) {
+        setImageNumber(0);
+      } else {
+        setImageNumber((prev) => prev + 1);
+      }
+    }, 500);
   };
 
   const previousImage = () => {
-    if (imageNumber === 0) {
-      setImageNumber(2);
-    } else {
-      setImageNumber((prev) => prev - 1);
-    }
+    setTimeout(() => {
+      if (imageNumber === 0) {
+        setImageNumber(2);
+      } else {
+        setImageNumber((prev) => prev - 1);
+      }
+    }, 500);
   };
+
   return (
-    <div>
+    <div className={styles.producutDescriptionContainer}>
       <div className={styles.imageContainer}>
         <Arrow
           image={ArrowLeftIcon}
@@ -60,7 +65,7 @@ export function ProductImagesWithTitle({
         />
       </div>
 
-      <h3>{productTitle}</h3>
+      <h3 className={styles.title}>{productTitle}</h3>
     </div>
   );
 }

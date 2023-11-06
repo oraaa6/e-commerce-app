@@ -1,7 +1,7 @@
 import { Product } from "@/types/products.types";
 import styles from "./page.module.scss";
 import { PageContainer } from "@/components/page-container/page-container";
-import { ProductDescription } from "@/components/product-description/prooduct-description";
+import { ProductDescription } from "@/components/product-description/product-description";
 import { ProductImagesWithTitle } from "@/components/product-images-with-title/product-images-with-title";
 
 async function getProduct(productId: string) {
