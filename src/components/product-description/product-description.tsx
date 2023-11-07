@@ -70,7 +70,7 @@ export function ProductDescription({
 
   return (
     <>
-      <p className={"styles.description"}>{description}</p>
+      <p className={styles.description}>{description}</p>
       <h2> {price} $</h2>
       <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
         <Controller

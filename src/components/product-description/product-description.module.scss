@@ -1,3 +1,7 @@
 .form {
-  max-width: 200px;
+  max-width: none;
+
+  @include md {
+    max-width: 200px;
+  }
 }

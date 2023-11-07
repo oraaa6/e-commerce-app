@@ -22,6 +22,7 @@ export function ProductCell({ image, title, price, id }: ProductCellProps) {
   const product = useSelector(products);
 
   const addProduct = () => {
+    console.log("dupa");
     const currentProductIndex = product.findIndex((item) => {
       return item[id];
     });

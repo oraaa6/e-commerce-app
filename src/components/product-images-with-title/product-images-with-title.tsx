@@ -21,21 +21,13 @@ export function ProductImagesWithTitle({
 
   const nextImage = () => {
     setTimeout(() => {
-      if (imageNumber === 2) {
-        setImageNumber(0);
-      } else {
-        setImageNumber((prev) => prev + 1);
-      }
+      setImageNumber((prev) => (prev + 1) % 3);
     }, 500);
   };
 
   const previousImage = () => {
     setTimeout(() => {
-      if (imageNumber === 0) {
-        setImageNumber(2);
-      } else {
-        setImageNumber((prev) => prev - 1);
-      }
+      setImageNumber((prev) => (prev - 1 + 3) % 3); // trick with modulo
     }, 500);
   };
 
