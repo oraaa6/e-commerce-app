@@ -4,50 +4,60 @@ import { ProductCell } from "@/components/product-cell/product-cell";
 import { Products } from "@/types/products.types";
 import styles from "./men.module.scss";
 import { PageContainer } from "@/components/page-container/page-container";
-import { useEffect, useState } from "react";
-
-// async function getMensProducts() {
-//   const response = await fetch(
-//     "https://api.escuelajs.co/api/v1/products?offset=0&limit=20"
-//   );
-
-//   if (!response.ok) {
-//     throw new Error("Failed to fetch data");
-//   }
-//   return response.json();
-// }
+import { useState } from "react";
+import { ProductFilters } from "@/components/product-filters/product-filters";
+import { useDebounce } from "@/hooks/use-debounce";
+import { Spinner } from "@/components/spinner/spinner";
 
 export default function Man() {
   const [products, setProducts] = useState<undefined | Products>();
+  const [seachPhrase, setSearchPhrase] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const response = await fetch(
-        "https://api.escuelajs.co/api/v1/products?offset=0&limit=20"
-      );
-      if (!response.ok) {
-        throw new Error("Failed to fetch data");
-      }
-      const result = await response.json();
-      setProducts(result);
-    };
-    fetchData();
-  }, []);
+  useDebounce(
+    () => {
+      setLoading(true);
+      const fetchData = async () => {
+        const response = await fetch(
+          `https://api.escuelajs.co/api/v1/products?offset=0&limit=20${
+            seachPhrase ? "&title=" + seachPhrase : ""
+          }`
+        );
 
-  // const products: Products = await getMensProducts();
+        if (!response.ok) {
+          setLoading(false);
+          throw new Error("Failed to fetch data");
+        }
+
+        const result = await response.json();
+        setProducts(result);
+        setLoading(false);
+      };
+      fetchData();
+    },
+    [seachPhrase],
+    500
+  );
 
   return (
     <PageContainer>
-      <div className={styles.productsContainer}>
-        {products?.map(({ title, id, images, price }) => (
-          <ProductCell
-            image={images[0]}
-            key={id}
-            title={title}
-            price={price}
-            id={id}
-          />
-        ))}
+      <div className={styles.contentContainer}>
+        <ProductFilters onChange={setSearchPhrase} value={seachPhrase} />
+        <div className={styles.productsContainer}>
+          {loading ? (
+            <Spinner />
+          ) : (
+            products?.map(({ title, id, images, price }) => (
+              <ProductCell
+                image={images[0]}
+                key={id}
+                title={title}
+                price={price}
+                id={id}
+              />
+            ))
+          )}
+        </div>
       </div>
     </PageContainer>
   );

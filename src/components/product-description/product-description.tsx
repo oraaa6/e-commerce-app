@@ -10,6 +10,10 @@ import { Button } from "../button/button";
 import { useDispatch, useSelector } from "react-redux";
 import { addProductToCart, products } from "@/slices/product.slice";
 import styles from "./product-description.module.scss";
+import { toast } from "react-toastify";
+import Check from "assets/svg/check.svg";
+import "react-toastify/dist/ReactToastify.css";
+import Image from "next/image";
 
 type ProductDescriptionProps = {
   description: string;
@@ -29,6 +33,7 @@ export function ProductDescription({
   name,
 }: ProductDescriptionProps) {
   const product = useSelector(products);
+  const dispatch = useDispatch();
 
   const getDefaultValues = () => {
     const currentProductIndex = product.findIndex((item) => {
@@ -47,25 +52,49 @@ export function ProductDescription({
   const {
     handleSubmit,
     control,
-    formState: { isDirty, isValid },
+    formState: { isValid },
   } = useForm<FormValues>({
     mode: "all",
-
-    defaultValues: { ...getDefaultValues() },
+    defaultValues: getDefaultValues(),
   });
 
-  const dispatch = useDispatch();
-
   const onSubmit = ({ size, amount }: FormValues) => {
-    dispatch(
+    const currentProductIndex = product.findIndex((item) => {
+      return item[id];
+    });
+
+    if (
+      currentProductIndex !== -1 &&
+      (size !== getDefaultValues().size || amount !== getDefaultValues().amount)
+    ) {
       addProductToCart({
         productId: id,
         productName: name,
         price,
         amount,
         size,
-      })
-    );
+      });
+      toast.info("Shopping bag updated");
+    } else if (
+      currentProductIndex !== -1 &&
+      size === getDefaultValues().size &&
+      amount === getDefaultValues().amount
+    ) {
+      toast.info("Product is already in shopping bag");
+    } else {
+      dispatch(
+        addProductToCart({
+          productId: id,
+          productName: name,
+          price,
+          amount,
+          size,
+        })
+      );
+      toast.success("Product added", {
+        icon: () => <Image src={Check} alt="check" height={50} />,
+      });
+    }
   };
 
   return (

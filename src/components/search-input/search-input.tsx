@@ -1,10 +1,21 @@
 import styles from "./search-input.module.scss";
 import Image from "next/image";
 import SearchIcon from "assets/svg/search-icon.svg";
+import { InputHTMLAttributes } from "react";
+import clsx from "clsx";
 
-export function SearchInput() {
+interface SearchInputProps extends InputHTMLAttributes<HTMLInputElement> {
+  aligned?: boolean;
+}
+
+export function SearchInput({ aligned = false, ...props }: SearchInputProps) {
   return (
-    <div className={styles.searchInputContainer}>
+    <div
+      className={clsx(
+        styles.searchInputContainer,
+        aligned ? styles.aligned : null
+      )}
+    >
       <div className={styles.inputContainer}>
         <Image
           src={SearchIcon}
@@ -13,6 +24,7 @@ export function SearchInput() {
           className={styles.searchIcon}
         />
         <input
+          {...props}
           className={styles.input}
           type="text"
           name="search"

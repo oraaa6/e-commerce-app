@@ -87,7 +87,7 @@ export function NavBar() {
           />
         </Link>
         <div className={styles.searchInput}>
-          <SearchInput />
+          <SearchInput aligned />
         </div>
 
         <ul className={styles.profileContainer}>
