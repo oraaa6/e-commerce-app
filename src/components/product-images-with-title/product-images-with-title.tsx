@@ -7,6 +7,7 @@ import styles from "./product-images-with-title.module.scss";
 import Image from "next/image";
 import { useState } from "react";
 import clsx from "clsx";
+import { FallbackImage } from "../fallback-image/fallback-image";
 
 type ProductImagesWithTitleProps = {
   productTitle: string;
@@ -19,6 +20,7 @@ export function ProductImagesWithTitle({
 }: ProductImagesWithTitleProps) {
   const [imageNumber, setImageNumber] = useState(0);
 
+  const isMoreThanOneImage = productImages.length > 1;
   const nextImage = () => {
     setTimeout(() => {
       setImageNumber((prev) => (prev + 1) % 3);
@@ -34,12 +36,15 @@ export function ProductImagesWithTitle({
   return (
     <div className={styles.producutDescriptionContainer}>
       <div className={styles.imageContainer}>
-        <Arrow
-          image={ArrowLeftIcon}
-          alt="left icon"
-          className={styles.arrowLeft}
-          onClick={previousImage}
-        />
+        {isMoreThanOneImage && (
+          <Arrow
+            image={ArrowLeftIcon}
+            alt="left icon"
+            className={styles.arrowLeft}
+            onClick={previousImage}
+          />
+        )}
+
         <Image
           src={productImages[imageNumber]}
           alt={productTitle}
@@ -49,12 +54,14 @@ export function ProductImagesWithTitle({
             (min-width: 1100px) 45vw,
             100vw"
         />
-        <Arrow
-          image={ArrowRightIcon}
-          alt="right icon"
-          className={styles.arrowRight}
-          onClick={nextImage}
-        />
+        {isMoreThanOneImage && (
+          <Arrow
+            image={ArrowRightIcon}
+            alt="right icon"
+            className={styles.arrowRight}
+            onClick={nextImage}
+          />
+        )}
       </div>
 
       <h3 className={styles.title}>{productTitle}</h3>

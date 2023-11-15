@@ -10,6 +10,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { ClothingSizes } from "@/types/products.types";
 import { toast } from "react-toastify";
 import Check from "assets/svg/check.svg";
+import { FallbackImage } from "../fallback-image/fallback-image";
 
 type ProductCellProps = {
   image: string;
@@ -48,7 +49,7 @@ export function ProductCell({ image, title, price, id }: ProductCellProps) {
     <div className={styles.cellContainer}>
       <Link href={`/product-${id}`}>
         <div className={styles.cellImageContainer}>
-          <Image
+          <FallbackImage
             src={image}
             alt={title}
             fill
