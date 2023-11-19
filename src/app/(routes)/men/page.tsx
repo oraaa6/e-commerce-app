@@ -58,7 +58,6 @@ export default function Man() {
         }
 
         const result = await response.json();
-        const lol = filterValues;
         setAmountOfProducts(result.length);
         setProducts(result);
         setLoading(false);
