@@ -46,7 +46,7 @@ export function ProductImagesWithTitle({
         )}
 
         <FallbackImage
-          key={productImages[imageNumber]}
+          key={imageNumber}
           src={productImages[imageNumber]}
           alt={productTitle}
           className={styles.image}

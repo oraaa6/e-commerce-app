@@ -6,9 +6,18 @@
 }
 
 .cellImageContainer {
-  width: 300px;
+  width: 100%;
+  height: 100%;
+  background-color: var(--color-background-card);
   position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   margin-top: 30px;
+  @include sm {
+    width: 300px;
+    height: 300px;
+  }
 }
 
 .cellImage {

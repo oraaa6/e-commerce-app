@@ -9,4 +9,10 @@
 
 .contentContainer {
   display: flex;
+  flex-direction: column;
+  align-items: center;
+  @include sm {
+    align-items: initial;
+    flex-direction: row;
+  }
 }

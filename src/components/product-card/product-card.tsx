@@ -13,6 +13,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Check from "assets/svg/check.svg";
 import { ClothingSizes } from "@/types/products.types";
+import { FallbackImage } from "../fallback-image/fallback-image";
 
 type ProductCardProps = {
   image: string;
@@ -54,7 +55,7 @@ export function ProductCard({ image, title, price, id }: ProductCardProps) {
       <Link href={`/product-${id}`}>
         <div className={styles.cartImageBgc}>
           <div className={styles.cartImageContainer}>
-            <Image
+            <FallbackImage
               src={image}
               alt={title}
               fill

@@ -1,4 +1,4 @@
-import { HTMLInputTypeAttribute, InputHTMLAttributes, useState } from "react";
+import { InputHTMLAttributes, useState } from "react";
 import styles from "./input.module.scss";
 import clsx from "clsx";
 import EyeClosed from "assets/svg/eye-close.svg";
@@ -22,7 +22,7 @@ export function Input({
   ...props
 }: InputProps) {
   const [focus, setFocus] = useState(false);
-  const [buttonType, setButtonType] = useState<"password" | "text">(inputType);
+  const [type, setType] = useState<"password" | "text">(inputType);
 
   return (
     <>
@@ -43,13 +43,13 @@ export function Input({
           )}
         >
           {withIcon &&
-            (buttonType === "password" ? (
+            (type === "password" ? (
               <Image
                 className={styles.eye}
                 src={EyeClosed}
                 alt="Show password"
                 height={30}
-                onClick={() => setButtonType("text")}
+                onClick={() => setType("text")}
               />
             ) : (
               <Image
@@ -57,7 +57,7 @@ export function Input({
                 src={EyeOpened}
                 alt="Hide password"
                 height={30}
-                onClick={() => setButtonType("password")}
+                onClick={() => setType("password")}
               />
             ))}
           <input
@@ -66,7 +66,7 @@ export function Input({
             className={styles.input}
             name={name}
             id={name}
-            type={buttonType || props.type}
+            type={type || props.type}
             {...props}
           />
         </div>

@@ -1,3 +1,9 @@
 .filtersContainer {
   max-width: 350px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  @include sm {
+    margin: 0 20px;
+  }
 }
