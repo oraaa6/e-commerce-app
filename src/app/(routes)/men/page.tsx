@@ -1,14 +1,9 @@
 "use client";
 
-import { ProductCell } from "@/components/product-cell/product-cell";
 import { Products } from "@/types/products.types";
-import styles from "./men.module.scss";
-import { PageContainer } from "@/components/page-container/page-container";
 import { useState } from "react";
-import { ProductFilters } from "@/components/product-filters/product-filters";
 import { useDebounce } from "@/hooks/use-debounce";
-import { Spinner } from "@/components/spinner/spinner";
-import { Pagination } from "@/components/paginate/paginate";
+import CategoryProducts from "@/components/category-products/category-products";
 
 export type Filters = {
   searchPhrase: string;
@@ -71,40 +66,16 @@ export default function Man() {
   const firstProductIndex = lastProductIndex - 30;
   const currentProducts = products?.slice(firstProductIndex, lastProductIndex);
 
-  const renderProducts = () => {
-    if (loading) {
-      return <Spinner />;
-    } else if (!currentProducts?.length) {
-      return <p>No products found</p>;
-    } else {
-      return currentProducts?.map(({ title, id, images, price }) => (
-        <ProductCell
-          image={images[0]}
-          key={id}
-          title={title}
-          price={price}
-          id={id}
-        />
-      ));
-    }
-  };
-
   return (
-    <PageContainer>
-      <div className={styles.contentContainer}>
-        <ProductFilters onChange={setFilterValues} values={filterValues} />
-        <div className={styles.productsContainer}>{renderProducts()}</div>
-      </div>
-      {!loading && (
-        <div>
-          <Pagination
-            productsPerPage={productsPerPage}
-            totalProducts={amountOfProducts}
-            setCurrentPage={setCurrentPage}
-            currentPage={currentPage}
-          />
-        </div>
-      )}
-    </PageContainer>
+    <CategoryProducts
+      loading={loading}
+      currentProducts={currentProducts}
+      productsPerPage={productsPerPage}
+      amountOfProducts={amountOfProducts}
+      setCurrentPage={setCurrentPage}
+      currentPage={0}
+      filterValues={filterValues}
+      setFilterValues={setFilterValues}
+    />
   );
 }
