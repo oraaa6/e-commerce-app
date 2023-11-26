@@ -33,7 +33,7 @@ export default function CategoryProducts({
   const renderProducts = () => {
     if (loading) {
       return <Spinner />;
-    } else if (!currentProducts?.length) {
+    } else if (currentProducts && !currentProducts?.length) {
       return <p>No products found</p>;
     } else {
       return currentProducts?.map(({ title, id, images, price }) => (

@@ -62,8 +62,8 @@ export default function Man() {
     [filterValues, currentPage],
     500
   );
-  const lastProductIndex = currentPage * 30;
-  const firstProductIndex = lastProductIndex - 30;
+  const lastProductIndex = currentPage * productsPerPage;
+  const firstProductIndex = lastProductIndex - productsPerPage;
   const currentProducts = products?.slice(firstProductIndex, lastProductIndex);
 
   return (
@@ -73,7 +73,7 @@ export default function Man() {
       productsPerPage={productsPerPage}
       amountOfProducts={amountOfProducts}
       setCurrentPage={setCurrentPage}
-      currentPage={0}
+      currentPage={currentPage}
       filterValues={filterValues}
       setFilterValues={setFilterValues}
     />

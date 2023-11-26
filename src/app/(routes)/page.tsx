@@ -4,6 +4,7 @@ import { PageContainer } from "@/components/page-container/page-container";
 import { CategoriesCards } from "@/components/categories-cards/categories-cards";
 import { SliderProduct } from "@/components/slider/slider";
 import { CashBack } from "@/components/cash-back/cash-back";
+import { Spinner } from "@/components/spinner/spinner";
 
 async function getProducts() {
   const response = await fetch(
@@ -24,7 +25,7 @@ export default async function Home() {
       <NavCover />
       <PageContainer>
         <CategoriesCards />
-        {products && <SliderProduct products={products} />}
+        {products ? <SliderProduct products={products} /> : <Spinner />}
       </PageContainer>
       <CashBack />
     </>

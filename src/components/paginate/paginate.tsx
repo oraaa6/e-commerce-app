@@ -1,7 +1,6 @@
 import React from "react";
 import styles from "./paginate.module.scss";
 import clsx from "clsx";
-import { ProductsRange } from "@/app/(routes)/men/page";
 
 type PaginationProps = {
   productsPerPage: number;
@@ -23,14 +22,16 @@ export const Pagination = ({
       {pages.map((page, index) => {
         return (
           <button
-            key={index}
-            className={clsx(
-              styles.button,
-              page == currentPage && styles.buttonActive
-            )}
+            key={currentPage}
             onClick={() => {
               setCurrentPage(page);
+              console.log(page, "page"); // ok
+              console.log(currentPage, "Currentpage");
             }}
+            className={clsx(
+              styles.button,
+              page === currentPage && styles.buttonActive
+            )}
           >
             {page}
           </button>
