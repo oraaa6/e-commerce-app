@@ -20,6 +20,7 @@ type ProductDescriptionProps = {
   price: string;
   id: number;
   name: string;
+  thumbnail: string;
 };
 type FormValues = {
   size: string;
@@ -31,6 +32,7 @@ export function ProductDescription({
   price,
   id,
   name,
+  thumbnail,
 }: ProductDescriptionProps) {
   const product = useSelector(products);
   const dispatch = useDispatch();
@@ -63,17 +65,21 @@ export function ProductDescription({
       return item[id];
     });
 
-    if (
-      currentProductIndex !== -1 &&
-      (size !== getDefaultValues().size || amount !== getDefaultValues().amount)
-    ) {
+    dispatch(
       addProductToCart({
         productId: id,
         productName: name,
         price,
         amount,
         size,
-      });
+        thumbnail,
+      })
+    );
+
+    if (
+      currentProductIndex !== -1 &&
+      (size !== getDefaultValues().size || amount !== getDefaultValues().amount)
+    ) {
       toast.info("Shopping bag updated");
     } else if (
       currentProductIndex !== -1 &&
@@ -82,15 +88,6 @@ export function ProductDescription({
     ) {
       toast.info("Product is already in shopping bag");
     } else {
-      dispatch(
-        addProductToCart({
-          productId: id,
-          productName: name,
-          price,
-          amount,
-          size,
-        })
-      );
       toast.success("Product added", {
         icon: () => <Image src={Check} alt="check" height={50} />,
       });

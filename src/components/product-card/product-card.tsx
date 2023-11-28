@@ -40,6 +40,7 @@ export function ProductCard({ image, title, price, id }: ProductCardProps) {
           price,
           amount: 1,
           size: ClothingSizes.S,
+          thumbnail: image,
         })
       );
       toast.success("Product added", {

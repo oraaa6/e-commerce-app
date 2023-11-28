@@ -37,6 +37,7 @@ export function ProductCell({ image, title, price, id }: ProductCellProps) {
           price,
           amount: 1,
           size: ClothingSizes.S,
+          thumbnail: image,
         })
       );
       toast.success("Product added", {

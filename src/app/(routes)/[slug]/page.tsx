@@ -35,6 +35,7 @@ export default async function ProductPage({
         <div className={styles.separator} />
         <div className={styles.rightSectionContiner}>
           <ProductDescription
+            thumbnail={product.images[0]}
             name={product.title}
             id={product.id}
             description={product.description}
