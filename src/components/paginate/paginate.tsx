@@ -25,8 +25,6 @@ export const Pagination = ({
             key={currentPage}
             onClick={() => {
               setCurrentPage(page);
-              console.log(page, "page"); // ok
-              console.log(currentPage, "Currentpage");
             }}
             className={clsx(
               styles.button,

@@ -1,7 +1,6 @@
 "use client";
 
 import * as React from "react";
-import { ChangeEvent, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { sizeOptions } from "@/app/(routes)/[slug]/products.utils";
 import { Select } from "../select/select";
