@@ -1,83 +1,83 @@
 "use client";
 
-import { useState } from "react";
-import { Input } from "../input/input";
 import styles from "./product-thumbnail.module.scss";
-import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
 import { addProductToCart, products } from "@/slices/product.slice";
-import { Controller, useForm } from "react-hook-form";
-import { Button } from "../button/button";
+import { FallbackImage } from "../fallback-image/fallback-image";
+import { PlusMinutButton } from "../plus-minus-button/plus-munus-button";
 
 export function ProductThumbnail() {
   const dispatch = useDispatch();
   const product = useSelector(products);
-
   const transformedProducts = product.map((element) => {
-    const [, values] = Object.entries(element)[0];
+    const [key, values] = Object.entries(element)[0];
     return {
       productName: values.productName,
       price: values.price,
       amount: values.amount,
       size: values.size,
       thumbnail: values.thumbnail,
+      productId: Number(key),
     };
   });
 
-  const {
-    handleSubmit,
-    control,
-    formState: { isDirty, isValid, errors, isSubmitting },
-    setError,
-  } = useForm({
-    mode: "all",
-    defaultValues: {
-      amount: "",
-    },
-  });
-
-  const onSubmit = () => {}; // todo
+  const totalPrice = transformedProducts.reduce((accumulator, currentValue) => {
+    let currentAmount =
+      Number(currentValue.price) * Number(currentValue.amount);
+    return accumulator + currentAmount;
+  }, 0);
 
   return (
     <div className={styles.container}>
       {transformedProducts.map(
-        ({ productName, thumbnail, amount, size, price }) => (
-          <>
+        ({ productName, thumbnail, amount, size, price }, index) => (
+          <div className={styles.containerProduct} key={productName}>
+            <FallbackImage
+              className={styles.image}
+              alt={productName}
+              src={thumbnail}
+              width={200}
+              height={200}
+            />
             <div className={styles.containerLeft}>
               <p className={styles.productName}>{productName}</p>
-              <Image alt={productName} src={thumbnail} width={50} height={50} />
+              <p className={styles.size}>Size: {size}</p>
+              <div className={styles.amountContainer}>
+                <PlusMinutButton
+                  onClick={() => {
+                    dispatch(
+                      addProductToCart({
+                        ...transformedProducts[index],
+                        amount: amount - 1,
+                      })
+                    );
+                  }}
+                >
+                  -
+                </PlusMinutButton>
+                <p className={styles.amount}>{amount}</p>
+                <PlusMinutButton
+                  onClick={() => {
+                    console.log("add");
+                    dispatch(
+                      addProductToCart({
+                        ...transformedProducts[index],
+                        amount: amount + 1,
+                      })
+                    );
+                  }}
+                >
+                  +
+                </PlusMinutButton>
+              </div>
             </div>
             <div className={styles.containerRight}>
-              <p className={styles.totalPrice}>{Number(price) * amount}</p>
-              <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
-                <Controller
-                  control={control}
-                  name="amount"
-                  render={({
-                    field: { onChange, value },
-                    fieldState: { error },
-                  }) => (
-                    <Input
-                      value={""}
-                      // todo
-                      onChange={() => {}}
-                      name="amount"
-                      label="Amount"
-                      type="number"
-                    />
-                  )}
-                />
-                <Button
-                  type="submit"
-                  disabled={!isDirty || !isValid || isSubmitting}
-                >
-                  Update
-                </Button>
-              </form>
+              <p className={styles.price}>{Number(price) * amount} $</p>
             </div>
-          </>
+          </div>
         )
       )}
+      <p className={styles.totalPrice}>Total: {totalPrice}</p>
     </div>
   );
 }

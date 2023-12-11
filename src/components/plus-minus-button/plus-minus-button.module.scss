@@ -1,0 +1,15 @@
+.button {
+  background-color: transparent;
+  border: 2px solid var(--color-gray);
+  border-radius: 200px;
+  width: 40px;
+  height: 40px;
+  color: var(--color-dark-green);
+  font-weight: 700;
+  font-size: 18px;
+}
+
+.disabled {
+  background-color: var(--color-gray);
+  cursor: default;
+}
