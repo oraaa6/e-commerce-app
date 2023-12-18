@@ -18,7 +18,7 @@
 
 .containerProduct {
   width: 100%;
-  height: 260px;
+
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -28,17 +28,26 @@
   max-width: 800px;
   gap: 30px;
   flex-direction: column;
-  @include md {
+  @include sm {
+    height: 260px;
     flex-direction: row;
   }
 }
 
 .image {
   border-radius: 20px;
+  height: 150px;
+  width: 150px;
+  @include sm {
+    height: 200px;
+    width: 200px;
+  }
 }
 
 .containerRight {
-  margin-left: auto;
+  @include sm {
+    margin-left: auto;
+  }
 }
 
 .productName {
